@@ -11,3 +11,44 @@
     @media(max-width:950px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.navlinks{gap:14px}.hero-box{min-height:450px}.newsletter{align-items:flex-start;flex-direction:column}.newsletter-form{max-width:100%}}
     @media(max-width:680px){.wrap{width:min(100% - 24px,1180px)}.nav{height:65px}.menu-toggle{display:block}.navlinks{display:none;position:absolute;top:65px;left:0;right:0;padding:18px 20px 22px;background:white;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}.navlinks.open{display:flex}.nav .cart-button{padding:10px 12px}.brand{font-size:1.1rem}.hero{padding:14px 0 35px}.hero-box{min-height:470px;border-radius:22px}.hero-content{padding:25px}.hero-note{width:72px;height:72px;font-size:.7rem;right:14px;top:14px}.section{padding:45px 0}.section-head{align-items:flex-start;flex-direction:column}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.product-info{padding:11px}.product-info h3{font-size:.9rem}.product-detail{font-size:.73rem}.tag{top:8px;left:8px;font-size:.62rem}.product-image{aspect-ratio:4/4.5}.product-bottom{margin-top:10px}.price{font-size:.82rem}.add-btn{width:33px;height:33px}.national-grid,.finder,.clips-grid{grid-template-columns:1fr}.national-card{min-height:250px}.finder{gap:15px}.clip-card{min-height:260px}.newsletter{border-radius:20px}.newsletter-form{flex-direction:column}.newsletter-form input,.newsletter-form button{width:100%}.footer-row{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}.filters{gap:8px}.filter-select{flex:1;min-width:calc(50% - 8px)}.search{flex-basis:100%}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* AskofKobby updates: consistent neutral controls, no browser-blue menu strokes. */
+.menu-toggle{color:var(--ink);-webkit-appearance:none;appearance:none;outline:none;box-shadow:none;border:0!important;background:transparent!important;line-height:1;padding:8px;min-width:42px;min-height:42px}
+.menu-toggle:focus-visible,.cart-button:focus-visible,.primary:focus-visible,.secondary:focus-visible,.add-btn:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.menu-toggle::-moz-focus-inner{border:0}
+.menu-toggle svg,.navlinks svg,.primary svg,.secondary svg{display:none!important}
+.promo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.promo-card{border:1px solid var(--line);border-radius:22px;padding:25px;display:flex;flex-direction:column;align-items:flex-start;min-width:0;background:#fff}
+.promo-card h3{font-size:clamp(1.55rem,3vw,2.2rem);letter-spacing:-.055em;line-height:1;margin:12px 0}
+.promo-card p{color:#4e5358;margin:0 0 15px}
+.promo-card .promo-note{font-size:.82rem;color:var(--muted)}
+.promo-card .primary,.promo-card .secondary{margin-top:auto}
+.bonanza{background:#eff9e4}.referral{background:#f5f5f5}.share{background:#f5f0e7}
+.dark-secondary{background:var(--ink);color:white}
+.bottle-section{display:grid;grid-template-columns:1fr minmax(220px, .75fr);gap:35px;align-items:center;background:#f6f7f8;border-radius:26px;padding:clamp(24px,5vw,48px);margin-bottom:35px}
+.bottle-copy h2,.delivery-box h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1;letter-spacing:-.06em;margin:10px 0 16px}
+.bottle-copy p{color:var(--muted);max-width:560px}
+.bottle-section img{width:100%;max-height:390px;object-fit:contain;border-radius:18px;background:#fff}
+.coming-soon{display:inline-flex;background:var(--green);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:.75rem;font-weight:950;letter-spacing:.08em;margin:0 0 16px}
+.bottle-copy .primary{display:flex;width:max-content}
+.delivery-section{padding:5px 0 0}
+.delivery-box{display:grid;grid-template-columns:1fr 1.2fr auto;gap:24px;align-items:center;padding:28px 0;border-top:1px solid var(--line)}
+.delivery-box p{color:var(--muted);margin:0}
+.country-hero{padding:35px 0 25px}
+.country-banner{border-radius:26px;padding:clamp(25px,5vw,48px);background:var(--soft);display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.country-banner h1{font-size:clamp(2.5rem,7vw,5rem);margin:10px 0;line-height:.95;color:var(--ink)}
+.country-banner p{color:var(--muted);max-width:520px}
+.country-video{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:18px;background:#151515}
+.game-panel{border:1px solid var(--line);border-radius:22px;padding:24px;margin:18px 0;background:#fff}
+.game-panel h3{font-size:1.5rem;letter-spacing:-.04em;margin:4px 0 8px}
+.game-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.game-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:15px}
+.game-card{min-height:90px;border:1px solid var(--line);border-radius:14px;background:var(--soft);font-size:1.8rem;font-weight:900;color:var(--ink)}
+.game-card:disabled{cursor:default;opacity:1}
+.game-message{font-weight:800;margin-top:12px;min-height:24px}
+.country-shop{padding-top:18px}
+.country-shop-shortcut{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin:20px 0}
+.country-shop-shortcut p{color:var(--muted);margin:0}
+@media(max-width:900px){.promo-grid{grid-template-columns:1fr 1fr}.delivery-box{grid-template-columns:1fr 1fr}.delivery-box .primary{grid-column:1/-1;justify-self:start}.country-banner{grid-template-columns:1fr}}
+@media(max-width:680px){.promo-grid{grid-template-columns:1fr}.bottle-section{grid-template-columns:1fr;gap:18px}.bottle-section img{max-height:300px}.delivery-box{grid-template-columns:1fr;gap:12px}.delivery-box .primary{grid-column:auto}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.country-banner{border-radius:20px}.menu-toggle{color:#151515!important}}
