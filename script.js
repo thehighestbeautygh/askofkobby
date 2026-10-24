@@ -1,5 +1,4 @@
-// AskofKobby — JavaScript
-// WhatsApp business number: Ghana international format, without + or spaces.
+// AskofKobby — shared JavaScript for homepage, Ghana and Nigeria pages.
 const WHATSAPP_NUMBER = "233545292437";
 
 const jerseys = [
@@ -69,112 +68,65 @@ const allProducts = [
 
 const cart = new Map();
 
-const grid = document.getElementById("productGrid");
-const nationalGrid = document.getElementById("nationalGrid");
+const esc = value => String(value).replace(/[&<>"']/g, c => ({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+}[c]));
 
-const esc = value =>
-  String(value).replace(/[&<>"']/g, character => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  }[character]));
+const byId = id => document.getElementById(id);
 
-function card(product) {
+function card(p) {
   return `
     <article class="product-card">
       <div class="product-image">
-        <span class="tag">${esc(product.tag || product.sleeve)}</span>
-        <img
-          src="${esc(product.image)}"
-          alt="${esc(product.team)} football jersey"
-          loading="lazy"
-          onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<span style=&quot;color:#777;font-size:.8rem;padding:15px;text-align:center&quot;>Image unavailable<br>Check filename</span>')"
-        >
+        <span class="tag">${esc(p.tag || p.sleeve)}</span>
+        <img src="${esc(p.image)}" alt="${esc(p.team)} football jersey" loading="lazy">
+        <span class="image-fallback" hidden>Image unavailable — check filename</span>
       </div>
-
       <div class="product-info">
-        <div class="product-team">${esc(product.team)}</div>
-        <h3>${esc(product.team)} ${product.n ? `#${product.n}` : ""}</h3>
-        <div class="product-detail">
-          ${esc(product.colour)} · ${esc(product.sleeve)}
-        </div>
-
+        <div class="product-team">${esc(p.team)}</div>
+        <h3>${esc(p.team)} ${p.n ? `#${p.n}` : ""}</h3>
+        <div class="product-detail">${esc(p.colour)} · ${esc(p.sleeve)}</div>
         <div class="product-bottom">
           <span class="price">Price on request</span>
-          <button
-            class="add-btn"
-            data-add="${esc(product.id)}"
-            aria-label="Add ${esc(product.team)} to cart"
-          >+</button>
+          <button class="add-btn" data-add="${esc(p.id)}" aria-label="Add ${esc(p.team)} to cart">+</button>
         </div>
       </div>
     </article>
   `;
 }
 
-function renderProducts() {
-  const query = document.getElementById("searchInput").value.trim().toLowerCase();
-  const team = document.getElementById("teamFilter").value;
-  const sleeve = document.getElementById("sleeveFilter").value;
-  const sort = document.getElementById("sortFilter").value;
-
-  let list = jerseys.filter(product =>
-    (team === "all" || product.team === team) &&
-    (sleeve === "all" || product.sleeve === sleeve) &&
-    [product.team, product.sponsor, product.colour, String(product.n)]
-      .join(" ")
-      .toLowerCase()
-      .includes(query)
-  );
-
-  if (sort === "team") {
-    list.sort((a, b) => a.team.localeCompare(b.team) || a.n - b.n);
-  } else {
-    list.sort((a, b) => a.n - b.n);
+document.addEventListener("error", event => {
+  if (event.target.tagName === "IMG" && event.target.closest(".product-image")) {
+    event.target.hidden = true;
+    const fallback = event.target.parentElement.querySelector(".image-fallback");
+    if (fallback) fallback.hidden = false;
   }
+}, true);
 
-  grid.innerHTML = list.length
-    ? list.map(product => card({
-        ...product,
-        id: String(product.n),
-        tag: `Jersey #${product.n}`
-      })).join("")
-    : '<div class="empty">No jerseys match that search. Try another team or filter.</div>';
-}
+function showToast(message) {
+  const toast = byId("toast");
+  if (!toast) return;
 
-function renderNational() {
-  nationalGrid.innerHTML = nationalJerseys.map(card).join("");
-}
+  toast.textContent = message;
+  toast.classList.add("show");
 
-function addToCart(id) {
-  const product = allProducts.find(item => String(item.id) === String(id));
-
-  if (!product) return;
-
-  const key = String(id);
-  const existing = cart.get(key);
-
-  cart.set(key, {
-    product,
-    qty: existing ? existing.qty + 1 : 1,
-    size: existing?.size || "Not selected",
-    version: existing?.version || "Not specified",
-    personalization: existing?.personalization || ""
-  });
-
-  updateCart();
-  showToast("Added to your cart ⚽");
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => toast.classList.remove("show"), 2300);
 }
 
 function updateCart() {
-  const quantity = [...cart.values()]
-    .reduce((total, item) => total + item.qty, 0);
+  const count = byId("cartCount");
+  const items = byId("cartItems");
+  const total = byId("cartTotal");
 
-  document.getElementById("cartCount").textContent = quantity;
+  if (!count || !items || !total) return;
 
-  const items = document.getElementById("cartItems");
+  count.textContent = [...cart.values()]
+    .reduce((sum, item) => sum + item.qty, 0);
 
   if (!cart.size) {
     items.innerHTML = `
@@ -183,253 +135,355 @@ function updateCart() {
         Add a jersey to get started.
       </div>
     `;
-
-    document.getElementById("cartTotal").textContent = "Price to confirm";
+    total.textContent = "Price to confirm";
     return;
   }
 
   items.innerHTML = [...cart.entries()].map(([id, item]) => `
     <div class="cart-line">
       <img src="${esc(item.product.image)}" alt="">
-
       <div>
-        <h4>
-          ${esc(item.product.team)}
-          ${item.product.n ? `#${item.product.n}` : ""}
-        </h4>
-
-        <p>
-          ${esc(item.product.sleeve)} · ${esc(item.product.colour)}
-        </p>
-
+        <h4>${esc(item.product.team)} ${item.product.n ? `#${item.product.n}` : ""}</h4>
+        <p>${esc(item.product.sleeve)} · ${esc(item.product.colour)}</p>
         <div class="qty-controls">
           <button data-qty="${esc(id)}" data-change="-1" aria-label="Decrease quantity">−</button>
           <span>${item.qty}</span>
           <button data-qty="${esc(id)}" data-change="1" aria-label="Increase quantity">+</button>
         </div>
-
         <button class="remove" data-remove="${esc(id)}">Remove</button>
       </div>
     </div>
   `).join("");
 
-  document.getElementById("cartTotal").textContent = "Confirm on WhatsApp";
+  total.textContent = "Confirm on WhatsApp";
+}
+
+function addToCart(id) {
+  const product = allProducts.find(p => String(p.id) === String(id));
+  if (!product) return;
+
+  const old = cart.get(String(id));
+
+  cart.set(String(id), {
+    product,
+    qty: old ? old.qty + 1 : 1,
+    size: old?.size || "Not selected",
+    version: old?.version || "Not specified",
+    personalization: old?.personalization || ""
+  });
+
+  updateCart();
+  showToast("Added to your cart.");
 }
 
 function openCart() {
-  const panel = document.getElementById("cartPanel");
+  const panel = byId("cartPanel");
+  if (!panel) return;
+
   panel.classList.add("open");
   panel.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
 }
 
 function closeCart() {
-  const panel = document.getElementById("cartPanel");
+  const panel = byId("cartPanel");
+  if (!panel) return;
+
   panel.classList.remove("open");
   panel.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
 }
 
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
+function bindCart() {
+  byId("openCart")?.addEventListener("click", openCart);
+  byId("closeCart")?.addEventListener("click", closeCart);
+  byId("cartBackdrop")?.addEventListener("click", closeCart);
 
-  setTimeout(() => toast.classList.remove("show"), 2200);
-}
+  byId("cartItems")?.addEventListener("click", event => {
+    const quantityButton = event.target.closest("[data-qty]");
+    const removeButton = event.target.closest("[data-remove]");
 
-// Add-to-cart buttons
-grid.addEventListener("click", event => {
-  const button = event.target.closest("[data-add]");
-  if (button) addToCart(button.dataset.add);
-});
+    if (quantityButton) {
+      const id = quantityButton.dataset.qty;
+      const item = cart.get(id);
 
-nationalGrid.addEventListener("click", event => {
-  const button = event.target.closest("[data-add]");
-  if (button) addToCart(button.dataset.add);
-});
+      if (item) {
+        item.qty += Number(quantityButton.dataset.change);
+        if (item.qty <= 0) cart.delete(id);
+        updateCart();
+      }
+    }
 
-// Quantity controls and remove buttons
-document.getElementById("cartItems").addEventListener("click", event => {
-  const quantityButton = event.target.closest("[data-qty]");
-  const removeButton = event.target.closest("[data-remove]");
-
-  if (quantityButton) {
-    const id = quantityButton.dataset.qty;
-    const item = cart.get(id);
-
-    if (item) {
-      item.qty += Number(quantityButton.dataset.change);
-
-      if (item.qty <= 0) cart.delete(id);
-
+    if (removeButton) {
+      cart.delete(removeButton.dataset.remove);
       updateCart();
     }
-  }
-
-  if (removeButton) {
-    cart.delete(removeButton.dataset.remove);
-    updateCart();
-  }
-});
-
-// Open and close cart
-document.getElementById("openCart").addEventListener("click", openCart);
-document.getElementById("closeCart").addEventListener("click", closeCart);
-document.getElementById("cartBackdrop").addEventListener("click", closeCart);
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeCart();
-});
-
-// WhatsApp checkout
-document.getElementById("checkoutButton").addEventListener("click", () => {
-  if (!cart.size) {
-    showToast("Add a jersey to your cart first.");
-    return;
-  }
-
-  let message = "Hi AskofKobby! I would like to enquire about these jerseys:\n\n";
-
-  [...cart.values()].forEach(item => {
-    message +=
-      `• ${item.product.team}${item.product.n ? ` #${item.product.n}` : ""}` +
-      ` — Quantity: ${item.qty}` +
-      `; Size: ${item.size}` +
-      `; Version: ${item.version}` +
-      `${item.personalization ? `; Name/number: ${item.personalization}` : ""}\n`;
   });
 
-  message += "\nPlease confirm sizes, availability and prices. Thank you!";
+  byId("checkoutButton")?.addEventListener("click", () => {
+    if (!cart.size) {
+      showToast("Add a jersey to your cart first.");
+      return;
+    }
 
-  const whatsappURL =
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    let message = "Hi AskofKobby! I would like to enquire about these jerseys:\n\n";
 
-  window.open(whatsappURL, "_blank", "noopener,noreferrer");
-});
+    for (const item of cart.values()) {
+      message +=
+        `• ${item.product.team}${item.product.n ? ` #${item.product.n}` : ""}` +
+        ` — Quantity: ${item.qty}` +
+        `; Size: ${item.size}` +
+        `; Version: ${item.version}` +
+        `${item.personalization ? `; Name/number: ${item.personalization}` : ""}\n`;
+    }
 
-// Search, filters and sorting
-["searchInput", "teamFilter", "sleeveFilter", "sortFilter"].forEach(id => {
-  const element = document.getElementById(id);
+    message += "\nPlease confirm sizes, availability and prices. Thank you!";
 
-  element.addEventListener(
-    id === "searchInput" ? "input" : "change",
-    renderProducts
-  );
-});
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  });
 
-// National-team navigation
-document.querySelectorAll("[data-national]").forEach(link => {
-  link.addEventListener("click", () => {
-    const target = link.dataset.national;
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeCart();
+  });
 
-    document.getElementById("searchInput").value = "";
-    document.getElementById("teamFilter").value = "all";
-    document.getElementById("sleeveFilter").value = "all";
+  updateCart();
+}
 
-    renderProducts();
+function initHome() {
+  const grid = byId("productGrid");
+  if (!grid) return;
 
-    setTimeout(() => {
-      nationalGrid.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
+  const teamSelect = byId("teamFilter");
+
+  if (teamSelect) {
+    [...new Set(jerseys.map(product => product.team))]
+      .sort()
+      .forEach(team => {
+        const option = document.createElement("option");
+        option.value = team;
+        option.textContent = team;
+        teamSelect.appendChild(option);
       });
-
-      showToast(`${target} jerseys are below.`);
-    }, 100);
-  });
-});
-
-// Jersey Finder
-document.getElementById("finderForm").addEventListener("submit", event => {
-  event.preventDefault();
-
-  const team = document.getElementById("finderTeam").value;
-  const sleeve = document.getElementById("finderSleeve").value;
-
-  const found = allProducts.filter(product =>
-    (team === "any" || product.team.toLowerCase().includes(team.toLowerCase())) &&
-    (sleeve === "any" || product.sleeve === sleeve)
-  ).slice(0, 3);
-
-  const result = document.getElementById("finderResult");
-
-  if (!found.length) {
-    result.textContent =
-      "No exact match yet. Try “Any team” or another sleeve style.";
-    return;
   }
 
-  result.innerHTML = "Try: " + found.map(product => `
-    <a
-      href="#shop"
-      data-finder-pick="${esc(product.id)}"
-      style="text-decoration:underline;font-weight:900"
-    >
-      ${esc(product.team)}${product.n ? ` #${product.n}` : ""}
-    </a>
-  `).join(" · ");
+  function render() {
+    const query = byId("searchInput")?.value.trim().toLowerCase() || "";
+    const team = teamSelect?.value || "all";
+    const sleeve = byId("sleeveFilter")?.value || "all";
+    const sort = byId("sortFilter")?.value || "number";
 
-  result.querySelectorAll("[data-finder-pick]").forEach(link => {
-    link.addEventListener("click", () => {
-      const id = link.dataset.finderPick;
+    let list = jerseys.filter(product =>
+      (team === "all" || product.team === team) &&
+      (sleeve === "all" || product.sleeve === sleeve) &&
+      [product.team, product.sponsor, product.colour, String(product.n)]
+        .join(" ")
+        .toLowerCase()
+        .includes(query)
+    );
 
-      if (jerseys.some(product => String(product.n) === id)) {
-        document.getElementById("searchInput").value = id;
-        document.getElementById("teamFilter").value = "all";
-        document.getElementById("sleeveFilter").value = "all";
-        renderProducts();
-      } else {
-        nationalGrid.scrollIntoView({behavior:"smooth"});
-      }
+    if (sort === "team") {
+      list.sort((a, b) => a.team.localeCompare(b.team) || a.n - b.n);
+    } else {
+      list.sort((a, b) => a.n - b.n);
+    }
+
+    grid.innerHTML = list.length
+      ? list.map(product => card({
+          ...product,
+          id: String(product.n),
+          tag: `Jersey #${product.n}`
+        })).join("")
+      : '<div class="empty">No jerseys match that search. Try another team or filter.</div>';
+  }
+
+  ["searchInput", "teamFilter", "sleeveFilter", "sortFilter"].forEach(id => {
+    const element = byId(id);
+
+    element?.addEventListener(
+      id === "searchInput" ? "input" : "change",
+      render
+    );
+  });
+
+  grid.addEventListener("click", event => {
+    const button = event.target.closest("[data-add]");
+    if (button) addToCart(button.dataset.add);
+  });
+
+  const form = byId("finderForm");
+
+  form?.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const team = byId("finderTeam").value;
+    const sleeve = byId("finderSleeve").value;
+
+    const found = allProducts.filter(product =>
+      (team === "any" || product.team.toLowerCase().includes(team.toLowerCase())) &&
+      (sleeve === "any" || product.sleeve === sleeve)
+    ).slice(0, 3);
+
+    const result = byId("finderResult");
+
+    if (!found.length) {
+      result.textContent = "No exact match yet. Try another team or sleeve style.";
+      return;
+    }
+
+    result.innerHTML = "Try: " + found.map(product => `
+      <a
+        href="${product.n ? "#shop" : product.team === "Ghana" ? "ghana.html" : "nigeria.html"}"
+        data-finder-pick="${esc(product.id)}"
+      >
+        ${esc(product.team)}${product.n ? ` #${product.n}` : ""}
+      </a>
+    `).join(" · ");
+
+    result.querySelectorAll("[data-finder-pick]").forEach(link => {
+      link.addEventListener("click", () => {
+        const id = link.dataset.finderPick;
+
+        if (!id.startsWith("gh") && !id.startsWith("ng")) {
+          byId("searchInput").value = id;
+          teamSelect.value = "all";
+          byId("sleeveFilter").value = "all";
+          render();
+        } else {
+          sessionStorage.setItem("akCountryPick", id);
+        }
+      });
     });
   });
-});
 
-// Newsletter demo
-document.getElementById("newsletterForm").addEventListener("submit", event => {
-  event.preventDefault();
+  byId("newsletterForm")?.addEventListener("submit", event => {
+    event.preventDefault();
 
-  document.getElementById("newsletterMessage").textContent =
-    "Thanks! The newsletter form needs a mailing-list service before it can collect or save email addresses.";
+    byId("newsletterMessage").textContent =
+      "Thanks for your interest. This signup is not connected to a mailing-list service yet, so your email has not been saved.";
 
-  showToast("Newsletter setup is still needed.");
-});
-
-// Mobile menu
-document.getElementById("menuToggle").addEventListener("click", () => {
-  const nav = document.getElementById("navLinks");
-  nav.classList.toggle("open");
-
-  document.getElementById("menuToggle").setAttribute(
-    "aria-expanded",
-    nav.classList.contains("open") ? "true" : "false"
-  );
-});
-
-document.querySelectorAll("#navLinks a").forEach(link => {
-  link.addEventListener("click", () => {
-    document.getElementById("navLinks").classList.remove("open");
-    document.getElementById("menuToggle").setAttribute("aria-expanded", "false");
-  });
-});
-
-// Populate the team filter
-const teamSelect = document.getElementById("teamFilter");
-
-[...new Set(jerseys.map(product => product.team))]
-  .sort()
-  .forEach(team => {
-    const option = document.createElement("option");
-    option.value = team;
-    option.textContent = team;
-    teamSelect.appendChild(option);
+    showToast("Newsletter signup is not connected yet.");
   });
 
-// Current year in the footer
-document.getElementById("year").textContent = new Date().getFullYear();
+  const toggle = byId("menuToggle");
+  const nav = byId("navLinks");
 
-// Initial page rendering
-renderProducts();
-renderNational();
-updateCart();
+  toggle?.addEventListener("click", () => {
+    nav.classList.toggle("open");
+    toggle.setAttribute(
+      "aria-expanded",
+      nav.classList.contains("open") ? "true" : "false"
+    );
+  });
+
+  nav?.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  if (byId("year")) {
+    byId("year").textContent = new Date().getFullYear();
+  }
+
+  render();
+}
+
+function initCountry() {
+  const country = byId("countryPage")?.dataset.country;
+  if (!country) return;
+
+  const isGhana = country === "Ghana";
+  const products = nationalJerseys.filter(product => product.team === country);
+  const grid = byId("countryGrid");
+
+  function renderCountryProducts() {
+    if (grid) grid.innerHTML = products.map(card).join("");
+  }
+
+  grid?.addEventListener("click", event => {
+    const button = event.target.closest("[data-add]");
+    if (button) addToCart(button.dataset.add);
+  });
+
+  renderCountryProducts();
+
+  if (byId("year")) {
+    byId("year").textContent = new Date().getFullYear();
+  }
+
+  byId("shopShortcut")?.addEventListener("click", () => {
+    byId("countryShop")?.scrollIntoView({behavior: "smooth"});
+  });
+
+  if (isGhana) {
+    const game = byId("flagGame");
+
+    if (game) {
+      const winning = Math.floor(Math.random() * 10);
+      let played = false;
+
+      game.innerHTML = Array.from({length: 10}, (_, i) => `
+        <button class="game-card" type="button" data-card="${i}" aria-label="Choose card ${i + 1}">?</button>
+      `).join("");
+
+      game.addEventListener("click", event => {
+        const button = event.target.closest("[data-card]");
+        if (!button || played) return;
+
+        played = true;
+
+        game.querySelectorAll("button").forEach((cardButton, i) => {
+          cardButton.disabled = true;
+          cardButton.textContent = i === winning ? "🇬🇭" : "⚽";
+        });
+
+        byId("flagMessage").textContent =
+          Number(button.dataset.card) === winning
+            ? "Correct pick! You found Ghana’s flag. Ask us on WhatsApp to confirm a 10% Ghana-jersey discount."
+            : "Not this time! The flag is revealed above. You get one attempt per page visit.";
+
+        if (Number(button.dataset.card) === winning && byId("flagClaim")) {
+          byId("flagClaim").hidden = false;
+        }
+      });
+    }
+
+    const answer = byId("playerAnswer");
+
+    answer?.addEventListener("click", event => {
+      const button = event.target.closest("[data-answer]");
+      if (!button) return;
+
+      answer.querySelectorAll("button").forEach(item => item.disabled = true);
+
+      byId("playerMessage").textContent =
+        button.dataset.answer === "correct"
+          ? "Correct! You know your Black Stars football. Message us to confirm your Ghana jersey options."
+          : "Not quite! Thanks for playing. Check out the Ghana jerseys below.";
+    });
+
+  } else {
+    const answer = byId("foodAnswer");
+
+    answer?.addEventListener("click", event => {
+      const button = event.target.closest("[data-answer]");
+      if (!button) return;
+
+      answer.querySelectorAll("button").forEach(item => item.disabled = true);
+
+      byId("foodMessage").textContent =
+        button.dataset.answer === "correct"
+          ? "Correct! Eba and egusi made the team. Now let’s see those Super Eagles jerseys."
+          : "Nice try! The answer we were looking for is eba and egusi. Now check out the Nigeria jerseys.";
+    });
+  }
+}
+
+bindCart();
+initHome();
+initCountry();
