@@ -1,1 +1,336 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><link rel="stylesheet" href="style.css"><title>Nigeria Jollof 🇳🇬 | AskofKobby</title><meta name="description" content="Explore Nigeria national-team jerseys and football challenges at AskofKobby."></head><body><div class="topbar">YOUR NEXT MATCH-DAY LOOK STARTS HERE <span>⚽</span></div><header><div class="wrap nav"><a class="brand" href="index.html"><b>AK</b>AskofKobby</a><button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="navlinks" id="navLinks"><a href="index.html#shop">Club jerseys</a><a href="index.html#national">National teams</a><a href="index.html#promotions">Offers</a></nav><button class="cart-button" id="openCart">Cart <span class="cart-count" id="cartCount">0</span></button></div></header><main id="countryPage" data-country="Nigeria"><section class="country-hero wrap"><div class="country-banner"><div><div class="kicker">Nigeria Jollof 🇳🇬</div><h1>Naija, are you ready?</h1><p>Super Eagles spirit, a quick food question and the Nigeria national-team jerseys. Let’s see if you know your side.</p><div class="hero-actions"><button class="primary lime" id="shopShortcut" type="button">Shop Nigeria jerseys</button><a class="secondary dark-secondary" href="index.html">Back to homepage</a></div></div><video class="country-video" autoplay muted loop playsinline preload="metadata" aria-label="Nigeria football video"><source src="export_1792882293226.mov" type="video/quicktime"><source src="export_1792882293226.mov" type="video/mp4"></video></div></section><section class="section wrap"><div class="section-head"><div><div class="kicker">Naija quick challenge</div><h2>Choose your answer.</h2></div><p class="section-intro">One question before you get to the jerseys.</p></div><div class="game-panel"><h3>Which one is a classic Nigerian meal pairing?</h3><p>Pick your answer. No VAR review.</p><div class="game-actions" id="foodAnswer"><button class="secondary dark-secondary" data-answer="wrong" type="button">Garri</button><button class="secondary dark-secondary" data-answer="wrong" type="button">Chips</button><button class="secondary dark-secondary" data-answer="wrong" type="button">Bread</button><button class="secondary dark-secondary" data-answer="correct" type="button">Eba and egusi</button></div><div class="game-message" id="foodMessage" aria-live="polite"></div></div></section><section class="section wrap country-shop" id="countryShop"><div class="section-head"><div><div class="kicker">National team collection</div><h2>Nigeria jerseys.</h2></div><p class="section-intro">Add your pick to the cart and send your enquiry through WhatsApp. We’ll confirm size, stock and price.</p></div><div class="product-grid" id="countryGrid"></div></section><section class="delivery-section"><div class="wrap delivery-box"><div><div class="kicker">Delivery</div><h2>Across Ghana.</h2></div><p>Delivery charges and estimated timing depend on your location. We’ll confirm the details on WhatsApp before you finalise your order.</p><a class="primary" href="https://wa.me/233545292437?text=Hi%20AskofKobby%2C%20please%20confirm%20delivery%20charges%20and%20timing.">Ask about delivery</a></div></section></main><footer><div class="wrap footer-row"><div><a class="brand" href="index.html"><b>AK</b>AskofKobby</a><div class="footer-small" style="margin-top:10px">For the love of football. ⚽</div><div class="footer-small" style="margin-top:8px"><a href="mailto:askofkobby@gmail.com">askofkobby@gmail.com</a> · <a href="https://wa.me/233545292437">WhatsApp us</a></div></div><div class="footer-links"><a href="index.html#shop">Club jerseys</a><a href="index.html#national">National teams</a><a href="index.html">Homepage</a></div><div class="footer-small">© <span id="year"></span> AskofKobby</div></div></footer><div class="cart-panel" id="cartPanel" aria-hidden="true"><div class="cart-backdrop" id="cartBackdrop"></div><aside class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="cart-heading"><h2 id="cartTitle">Your cart</h2><button class="close-cart" id="closeCart" aria-label="Close cart">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><span>Estimated total</span><span id="cartTotal">Price to confirm</span></div><button class="primary checkout" id="checkoutButton">Order on WhatsApp</button><p class="cart-note">We’ll confirm final price, size and availability before your order is final. No payment is taken on this website.</p></aside></div><div class="toast" id="toast" role="status"></div><script src="script.js" defer></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Nigeria Jerseys | AskofKobby</title>
+  <meta
+    name="description"
+    content="Explore Nigeria national football jerseys, play football trivia, and order through AskofKobby."
+  >
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="topbar">
+    <p>AskofKobby — Football Jerseys. Your Club. Your Colours.</p>
+  </div>
+
+  <header class="site-header">
+    <a href="index.html" class="logo" aria-label="AskofKobby home">
+      AskofKobby<span>.</span>
+    </a>
+
+    <button
+      id="menuToggle"
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-controls="navLinks"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+
+    <nav id="navLinks" class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="ghana.html">Ghana</a>
+      <a href="nigeria.html" aria-current="page">Nigeria</a>
+      <a href="index.html#shop">Club Jerseys</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <button
+      id="openCart"
+      class="cart-button"
+      type="button"
+      aria-label="Open shopping cart"
+    >
+      Cart <span id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main id="countryPage" data-country="Nigeria">
+
+    <!-- HERO -->
+    <section class="country-hero">
+      <div class="country-hero-content">
+        <p class="eyebrow">THE SUPER EAGLES</p>
+
+        <h1>Nigeria 🇳🇬</h1>
+
+        <p>
+          Green, white and football pride.
+          Explore Nigeria's national team jerseys
+          and test your football knowledge.
+        </p>
+
+        <a href="#countryShop" class="button">
+          Explore Nigeria Jerseys
+        </a>
+
+        <a href="#countryGames" class="button button-secondary">
+          Play Football Trivia
+        </a>
+      </div>
+
+      <div class="country-hero-media">
+        <video
+          class="country-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="Nigeria football video"
+        >
+          <source src="export_1792882293226.mov" type="video/quicktime">
+        </video>
+      </div>
+    </section>
+
+    <!-- GAMES -->
+    <section id="countryGames" class="country-games">
+      <div class="section-heading">
+        <p class="eyebrow">TEST YOUR KNOWLEDGE</p>
+        <h2>Nigeria Football Games</h2>
+
+        <p>
+          Football, Nigerian favourites and a little friendly competition.
+          How many can you get right?
+        </p>
+      </div>
+
+      <!-- GAME 1: FOOD CHALLENGE -->
+      <article id="foodGame" class="game-card">
+        <p class="eyebrow">GAME 01</p>
+        <h3>Naija Food Challenge</h3>
+
+        <p>
+          Which of these is a popular Nigerian dish
+          commonly eaten with egusi soup?
+        </p>
+
+        <div id="foodAnswer" class="game-options">
+          <button type="button" data-answer="correct">
+            Eba
+          </button>
+
+          <button type="button" data-answer="wrong">
+            Waakye
+          </button>
+
+          <button type="button" data-answer="wrong">
+            Kenkey
+          </button>
+
+          <button type="button" data-answer="wrong">
+            Fufu with light soup
+          </button>
+        </div>
+
+        <p id="foodMessage" aria-live="polite"></p>
+      </article>
+
+      <!-- GAME 2: FOUR-QUESTION QUIZ -->
+      <article id="countryQuiz" class="game-card">
+        <p class="eyebrow">GAME 02</p>
+        <h3>How Well Do You Know Nigeria?</h3>
+
+        <p id="quizProgress" aria-live="polite">
+          Get ready to play.
+        </p>
+
+        <h4 id="quizQuestion">Football Trivia</h4>
+
+        <p id="quizPrompt">
+          Your questions will appear here.
+        </p>
+
+        <div
+          id="quizAnswers"
+          class="game-options"
+        ></div>
+
+        <p id="quizMessage" aria-live="polite"></p>
+
+        <button
+          id="quizNext"
+          class="button"
+          type="button"
+          hidden
+        >
+          Next Question
+        </button>
+      </article>
+
+      <!-- GAME 3: SUPER EAGLES -->
+      <article class="game-card">
+        <p class="eyebrow">GAME 03</p>
+        <h3>Know Your Super Eagles</h3>
+
+        <p>
+          What is the nickname of Nigeria's men's national
+          football team?
+        </p>
+
+        <div class="game-options" id="eaglesAnswer">
+          <button type="button" data-answer="wrong">
+            The Black Stars
+          </button>
+
+          <button type="button" data-answer="correct">
+            The Super Eagles
+          </button>
+
+          <button type="button" data-answer="wrong">
+            The Pharaohs
+          </button>
+        </div>
+
+        <p id="eaglesMessage" aria-live="polite"></p>
+      </article>
+
+      <p class="game-note">
+        Play for fun and test your knowledge.
+        Any offers or discounts must be confirmed by AskofKobby.
+      </p>
+    </section>
+
+    <!-- NATIONAL JERSEYS -->
+    <section id="countryShop" class="country-shop">
+      <div class="section-heading">
+        <p class="eyebrow">NIGERIA COLLECTION</p>
+        <h2>Nigeria National Jerseys</h2>
+
+        <p>
+          Browse the available designs and contact us
+          to confirm prices, sizes and availability.
+        </p>
+      </div>
+
+      <div
+        id="countryGrid"
+        class="product-grid"
+        aria-live="polite"
+      ></div>
+
+      <p class="price-note">
+        Prices on request. Contact AskofKobby for availability.
+      </p>
+    </section>
+
+    <!-- DELIVERY -->
+    <section class="delivery-section">
+      <h2>Delivery Information</h2>
+
+      <p>
+        Contact us to confirm whether delivery is available
+        for your location, along with any applicable charges.
+      </p>
+
+      <a
+        class="button"
+        href="https://wa.me/233545292437?text=Hello%20AskofKobby!%20I%20would%20like%20to%20ask%20about%20Nigeria%20jersey%20availability%20and%20delivery."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Ask About Delivery
+      </a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <a href="index.html" class="logo">
+      AskofKobby<span>.</span>
+    </a>
+
+    <p>Football jerseys. Your club. Your colours.</p>
+
+    <div class="footer-links">
+      <a
+        href="https://instagram.com/askof.kobby"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram
+      </a>
+
+      <a
+        href="https://wa.me/233545292437"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </a>
+
+      <a href="index.html">Home</a>
+    </div>
+
+    <p>&copy; <span id="year"></span> AskofKobby.</p>
+  </footer>
+
+  <!-- CART -->
+  <div
+    class="cart-panel"
+    id="cartPanel"
+    aria-hidden="true"
+  >
+    <div class="cart-backdrop" id="cartBackdrop"></div>
+
+    <aside
+      class="cart-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cartTitle"
+    >
+      <div class="cart-header">
+        <h2 id="cartTitle">Your Cart</h2>
+
+        <button
+          id="closeCart"
+          type="button"
+          aria-label="Close cart"
+        >
+          &times;
+        </button>
+      </div>
+
+      <div id="cartItems"></div>
+
+      <div class="cart-summary">
+        <p>
+          Total:
+          <strong id="cartTotal">Price on request</strong>
+        </p>
+
+        <p>
+          Prices and availability will be confirmed
+          before your order is completed.
+        </p>
+
+        <button
+          id="checkoutButton"
+          class="button"
+          type="button"
+        >
+          Continue on WhatsApp
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- TOAST -->
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+</body>
+</html>
