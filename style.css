@@ -3094,4 +3094,7 @@ font-size: 11px;
 white-space: normal;
 }
 }
+body {
+  outline: 5px solid red !important;
+}
 
