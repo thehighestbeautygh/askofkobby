@@ -1476,14 +1476,16 @@ function initPromotions() {
 
 function initCountry() {
   const countryPage = byId("countryPage");
-  const country = countryPage?.dataset.country;
+  if (!countryPage) return;
 
+  const country = countryPage.dataset.country;
   if (!country) return;
 
   const isGhana = country.toLowerCase() === "ghana";
 
+  // Render the national jerseys for the current country.
   const products = nationalJerseys.filter(
-    product => product.team === country
+    product => product.team.toLowerCase() === country.toLowerCase()
   );
 
   const grid = byId("countryGrid");
@@ -1491,21 +1493,20 @@ function initCountry() {
   if (grid) {
     grid.innerHTML = products.map(productCard).join("");
 
-    grid.addEventListener("click", event => {
-      const button = event.target.closest("[data-add]");
-
-      if (button) {
-        addToCart(button.dataset.add);
-      }
+    grid.querySelectorAll("[data-add-to-cart]").forEach(button => {
+      button.addEventListener("click", () => {
+        addToCart(button.dataset.addToCart);
+      });
     });
   }
 
+  // Update the footer year.
   const year = byId("year");
-
   if (year) {
     year.textContent = new Date().getFullYear();
   }
 
+  // Scroll to the national jersey collection.
   byId("shopShortcut")?.addEventListener("click", () => {
     byId("countryShop")?.scrollIntoView({
       behavior: "smooth",
@@ -1513,210 +1514,233 @@ function initCountry() {
     });
   });
 
-  /*
-   * Four-round quiz.
-   * Ghana's perfect-score discount is offered only on the Ghana page.
-   */
-
-  const quiz = byId("countryQuiz");
-
-  if (!quiz) return;
-
+  // Country quiz questions.
   const rounds = isGhana
     ? [
         {
-          question: "Which colours appear on Ghana's national flag?",
-          prompt: "Choose the full set.",
-          answers: [
-            ["Red, gold and green", true],
-            ["Blue, white and red", false],
-            ["Green and white only", false]
-          ],
-          explanation: "Ghana's flag uses red, gold and green."
+          question: "What are Ghana's national flag colours?",
+          answers: ["Red, gold and green", "Red, white and blue", "Green, black and white"],
+          correct: 0
         },
         {
-          question: "What is Ghana's men's national football team nickname?",
-          prompt: "Choose one answer.",
-          answers: [
-            ["Black Stars", true],
-            ["Super Eagles", false],
-            ["Indomitable Lions", false]
-          ],
-          explanation: "Ghana's men's national team is known as the Black Stars."
+          question: "What is Ghana's national football team nicknamed?",
+          answers: ["The Black Stars", "The Super Eagles", "The Lions"],
+          correct: 0
         },
         {
-          question: "Which player is Mohammed Kudus?",
-          prompt: "Choose the matching name.",
-          answers: [
-            ["Mohammed Kudus", true],
-            ["Thomas Partey", false],
-            ["Jordan Ayew", false]
-          ],
-          explanation: "Mohammed Kudus is a Ghanaian footballer."
+          question: "Which Ghanaian footballer plays as an attacking midfielder?",
+          answers: ["Mohammed Kudus", "Victor Osimhen", "Alex Iwobi"],
+          correct: 0
         },
         {
-          question: "What is Ghana's capital city?",
-          prompt: "Final round.",
-          answers: [
-            ["Accra", true],
-            ["Kumasi", false],
-            ["Tamale", false]
-          ],
-          explanation: "Accra is Ghana's capital."
+          question: "What is the capital of Ghana?",
+          answers: ["Kumasi", "Accra", "Tamale"],
+          correct: 1
         }
       ]
     : [
         {
-          question: "Which is a classic Nigerian food pairing?",
-          prompt: "Choose the best answer.",
-          answers: [
-            ["Eba and egusi soup", true],
-            ["Chips and gari", false],
-            ["Bread and pineapple", false]
-          ],
-          explanation: "Eba and egusi soup is a well-known Nigerian meal."
+          question: "Which dish is commonly eaten with egusi soup?",
+          answers: ["Eba", "Waakye", "Banku with okro stew"],
+          correct: 0
         },
         {
-          question: "What is Nigeria's men's national football team nickname?",
-          prompt: "Choose one answer.",
-          answers: [
-            ["Super Eagles", true],
-            ["Black Stars", false],
-            ["The Pharaohs", false]
-          ],
-          explanation: "Nigeria's men's national team is known as the Super Eagles."
+          question: "What is Nigeria's national football team nicknamed?",
+          answers: ["The Black Stars", "The Super Eagles", "The Pharaohs"],
+          correct: 1
         },
         {
-          question: "Which is a Nigerian football club?",
-          prompt: "Choose one.",
-          answers: [
-            ["Enyimba FC", true],
-            ["Liverpool FC", false],
-            ["Real Madrid", false]
-          ],
-          explanation: "Enyimba FC is a Nigerian football club."
+          question: "Which Nigerian club is known as the People's Elephant?",
+          answers: ["Enyimba FC", "Accra Hearts of Oak", "Asante Kotoko"],
+          correct: 0
         },
         {
-          question: "Which player is Nigerian?",
-          prompt: "Choose the Nigerian footballer.",
-          answers: [
-            ["Victor Osimhen", true],
-            ["Kylian Mbappé", false],
-            ["Erling Haaland", false]
-          ],
-          explanation: "Victor Osimhen is a Nigerian footballer."
+          question: "Which Nigerian striker won the 2023 African Footballer of the Year award?",
+          answers: ["Victor Osimhen", "Mohammed Kudus", "Thomas Partey"],
+          correct: 0
         }
       ];
 
-  let roundIndex = 0;
-  let correctAnswers = 0;
-  let answered = false;
+  // Shuffle questions for a fresh order on each page visit.
+  const shuffledRounds = [...rounds].sort(() => Math.random() - 0.5);
+
+  const quiz = byId("countryQuiz");
+  const legacyFlagGame = byId("flagGame");
+  const legacyPlayerAnswer = byId("playerAnswer");
+  const legacyFoodAnswer = byId("foodAnswer");
+
+  // Keep the existing legacy game markup functional.
+  if (!quiz) {
+    const legacyAnswers = isGhana
+      ? legacyPlayerAnswer
+      : legacyFoodAnswer;
+
+    if (legacyAnswers) {
+      const round = shuffledRounds[0];
+      const message = byId(
+        isGhana ? "playerMessage" : "foodMessage"
+      );
+
+      const buttons = [...legacyAnswers.querySelectorAll("button")];
+
+      buttons.forEach((button, index) => {
+        button.addEventListener("click", () => {
+          if (legacyAnswers.dataset.answered === "true") return;
+
+          legacyAnswers.dataset.answered = "true";
+
+          const correct = button.dataset.answer === "correct";
+
+          if (message) {
+            message.textContent = correct
+              ? "Correct! You know your football. ⚽"
+              : "Not quite! Try another round next time.";
+          }
+
+          buttons.forEach(item => {
+            item.disabled = true;
+          });
+        });
+      });
+
+      // Keep the flag game visible and interactive where present.
+      if (legacyFlagGame) {
+        const flagMessage = byId("flagMessage");
+        const flagClaim = byId("flagClaim");
+
+        flagClaim?.addEventListener("click", () => {
+          openWhatsApp(
+            "Hello AskofKobby! I'd like to confirm whether the Ghana flag game discount is available."
+          );
+        });
+
+        if (flagMessage && !flagMessage.textContent.trim()) {
+          flagMessage.textContent =
+            "Play the game and test your Ghana football knowledge!";
+        }
+      }
+    }
+
+    return;
+  }
+
+  // New quiz markup: #countryQuiz and its child elements.
+  const progress = byId("quizProgress");
+  const question = byId("quizQuestion");
+  const prompt = byId("quizPrompt");
+  const answers = byId("quizAnswers");
+  const message = byId("quizMessage");
+  const next = byId("quizNext");
+  const flagClaim = byId("flagClaim");
+
+  let currentRound = 0;
+  let score = 0;
 
   function renderRound() {
-    const round = rounds[roundIndex];
-
-    answered = false;
-
-    const progress = byId("quizProgress");
-    const question = byId("quizQuestion");
-    const prompt = byId("quizPrompt");
-    const answers = byId("quizAnswers");
-    const message = byId("quizMessage");
-    const next = byId("quizNext");
-    const claim = byId("flagClaim");
+    const round = shuffledRounds[currentRound];
 
     if (progress) {
       progress.textContent =
-        `Round ${roundIndex + 1} of ${rounds.length}`;
+        `Question ${currentRound + 1} of ${shuffledRounds.length}`;
     }
 
-    if (question) question.textContent = round.question;
-    if (prompt) prompt.textContent = round.prompt;
-    if (message) message.textContent = "";
-
-    if (next) next.hidden = true;
-    if (claim) claim.hidden = true;
-
-    if (answers) {
-      answers.innerHTML = round.answers.map(([label, correct]) => `
-        <button
-          class="secondary"
-          type="button"
-          data-answer-correct="${correct}"
-        >${esc(label)}</button>
-      `).join("");
-    }
-  }
-
-  const answersContainer = byId("quizAnswers");
-
-  answersContainer?.addEventListener("click", event => {
-    const button = event.target.closest("[data-answer-correct]");
-
-    if (!button || answered) return;
-
-    answered = true;
-
-    answersContainer.querySelectorAll("button").forEach(answer => {
-      answer.disabled = true;
-    });
-
-    const isCorrect = button.dataset.answerCorrect === "true";
-    const round = rounds[roundIndex];
-    const message = byId("quizMessage");
-    const next = byId("quizNext");
-
-    if (isCorrect) {
-      correctAnswers += 1;
-      message.textContent = `Correct! ${round.explanation}`;
-    } else {
-      message.textContent = `Not quite. ${round.explanation}`;
+    if (question) {
+      question.textContent = `Round ${currentRound + 1}`;
     }
 
-    if (roundIndex < rounds.length - 1) {
-      if (next) {
-        next.hidden = false;
-        next.textContent = "Next round";
-      }
-      return;
+    if (prompt) {
+      prompt.textContent = round.question;
     }
 
     if (message) {
-      message.textContent +=
-        ` Final score: ${correctAnswers}/${rounds.length}.`;
-    }
-
-    if (isGhana && correctAnswers === rounds.length) {
-      const claim = byId("flagClaim");
-
-      if (claim) {
-        claim.hidden = false;
-
-        claim.onclick = () => {
-          openWhatsApp(
-            "Hi AskofKobby! I completed the Ghana football quiz " +
-            "with a perfect score. Please confirm how to redeem the " +
-            "10% Ghana jersey discount and which jerseys qualify."
-          );
-        };
-      }
+      message.textContent = "";
     }
 
     if (next) {
-      next.hidden = false;
-      next.textContent = "Play again";
-    }
-  });
-
-  byId("quizNext")?.addEventListener("click", () => {
-    if (roundIndex >= rounds.length - 1) {
-      roundIndex = 0;
-      correctAnswers = 0;
-    } else {
-      roundIndex += 1;
+      next.hidden = true;
     }
 
-    renderRound();
+    if (answers) {
+      answers.innerHTML = round.answers
+        .map((answer, index) => `
+          <button type="button" data-answer-index="${index}">
+            ${esc(answer)}
+          </button>
+        `)
+        .join("");
+
+      answers.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", () => {
+          if (answers.dataset.answered === "true") return;
+
+          answers.dataset.answered = "true";
+
+          const selected = Number(button.dataset.answerIndex);
+          const correct = selected === round.correct;
+
+          if (correct) score++;
+
+          answers.querySelectorAll("button").forEach(item => {
+            item.disabled = true;
+          });
+
+          if (message) {
+            message.textContent = correct
+              ? "Correct! ⚽"
+              : `Not quite! The correct answer is ${round.answers[round.correct]}.`;
+          }
+
+          if (next) {
+            next.hidden = false;
+            next.textContent =
+              currentRound === shuffledRounds.length - 1
+                ? "See my score"
+                : "Next question";
+          }
+        });
+      });
+
+      delete answers.dataset.answered;
+    }
+
+    if (flagClaim) {
+      flagClaim.hidden = true;
+    }
+  }
+
+  next?.addEventListener("click", () => {
+    if (currentRound < shuffledRounds.length - 1) {
+      currentRound++;
+      renderRound();
+      return;
+    }
+
+    if (prompt) {
+      prompt.textContent =
+        `You scored ${score} out of ${shuffledRounds.length}!`;
+    }
+
+    if (message) {
+      message.textContent = score === shuffledRounds.length
+        ? "Perfect score! You really know your football!"
+        : "Thanks for playing! Come back and try again.";
+    }
+
+    if (answers) answers.innerHTML = "";
+
+    next.textContent = "Play again";
+
+    next.onclick = () => {
+      currentRound = 0;
+      score = 0;
+      shuffledRounds.sort(() => Math.random() - 0.5);
+      renderRound();
+      next.onclick = null;
+    };
+
+    if (flagClaim && isGhana && score === shuffledRounds.length) {
+      flagClaim.hidden = false;
+    }
   });
 
   renderRound();
