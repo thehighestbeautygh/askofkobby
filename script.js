@@ -1745,7 +1745,92 @@ function initCountry() {
 
   renderRound();
 }
+/* ========================================
+   COUNTRY GAME BUTTONS + VIDEO REPAIR
+======================================== */
 
+function repairCountryInteractions() {
+  const countryPage = document.getElementById("countryPage");
+
+  if (!countryPage) return;
+
+  // Connect the answer buttons for the simple games.
+  function connectGame(containerId, messageId) {
+    const container = document.getElementById(containerId);
+    const message = document.getElementById(messageId);
+
+    if (!container || container.dataset.gameBound === "true") return;
+
+    const buttons = container.querySelectorAll("button[data-answer]");
+
+    if (!buttons.length) return;
+
+    container.dataset.gameBound = "true";
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        if (container.dataset.answered === "true") return;
+
+        container.dataset.answered = "true";
+
+        const correct = button.dataset.answer === "correct";
+
+        if (message) {
+          message.textContent = correct
+            ? "Correct! ⚽ Well played!"
+            : "Not quite! Better luck next time. ⚽";
+        }
+
+        buttons.forEach(item => {
+          item.disabled = true;
+        });
+      });
+    });
+  }
+
+  connectGame("flagAnswers", "flagMessage");
+  connectGame("playerAnswer", "playerMessage");
+  connectGame("foodAnswer", "foodMessage");
+  connectGame("eaglesAnswer", "eaglesMessage");
+
+  // Attempt muted autoplay on country hero videos.
+  document.querySelectorAll(".country-video").forEach(video => {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("autoplay", "");
+
+    const attemptPlayback = () => {
+      const result = video.play();
+
+      if (result && typeof result.catch === "function") {
+        result.catch(() => {
+          // Some browsers block autoplay or cannot decode the video.
+          // Keep the video controls available as a manual fallback.
+          video.controls = true;
+        });
+      }
+    };
+
+    video.addEventListener("canplay", attemptPlayback, { once: true });
+
+    if (video.readyState >= 2) {
+      attemptPlayback();
+    } else {
+      video.load();
+    }
+
+    video.addEventListener("error", () => {
+      video.controls = false;
+      console.error(
+        "Country video could not load. Check its filename and format:",
+        video.currentSrc
+      );
+    });
+  });
+}
 /* =========================================================
    INITIALIZE THE WEBSITE
    ========================================================= */
@@ -1755,4 +1840,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initHome();
   initPromotions();
   initCountry();
+   repairCountryInteractions();
 });
