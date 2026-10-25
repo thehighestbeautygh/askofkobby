@@ -217,7 +217,6 @@ const jerseys = [
   },
 
   // Batch 2 continues with jerseys 26–49.
-];
 /* =========================================================
    BATCH 2 OF 5: REMAINING INVENTORY + SHARED HELPERS
    ========================================================= */
