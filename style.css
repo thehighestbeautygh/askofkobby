@@ -2729,4 +2729,273 @@ button:disabled {
 /* =========================================
    END OF ASKOFKOBBY STYLE SHEET
 ========================================= */
+/* ========================================
+   ASKOFKOBBY COUNTRY PAGE REPAIR
+   Ghana + Nigeria
+======================================== */
+
+#countryPage {
+  --ak-green: #b8f34a;
+  --ak-ink: #171717;
+  --ak-muted: #707070;
+  color: var(--ak-ink);
+}
+
+#countryPage section {
+  box-sizing: border-box;
+}
+
+#countryPage .country-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 36px;
+  padding: 64px 6%;
+  background: #f7f8f5;
+  overflow: hidden;
+}
+
+#countryPage .country-hero-content {
+  max-width: 560px;
+}
+
+#countryPage .eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #606b4a;
+}
+
+#countryPage .country-hero h1 {
+  margin: 12px 0;
+  font-size: clamp(42px, 6vw, 76px);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+#countryPage .country-hero-content > p:not(.eyebrow) {
+  max-width: 440px;
+  color: #5e5e5e;
+  line-height: 1.8;
+}
+
+#countryPage .country-hero-media {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #e9ebe4;
+  aspect-ratio: 4 / 3;
+}
+
+#countryPage .country-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#countryPage .button,
+#countryPage button.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 12px 20px;
+  border: 1px solid var(--ak-ink);
+  border-radius: 999px;
+  background: var(--ak-ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+
+#countryPage .button:hover {
+  transform: translateY(-2px);
+}
+
+#countryPage .button-secondary {
+  margin-left: 8px;
+  background: transparent;
+  color: var(--ak-ink);
+}
+
+#countryPage .country-games,
+#countryPage .country-shop,
+#countryPage .delivery-section {
+  padding: 64px 6%;
+  scroll-margin-top: 90px;
+}
+
+#countryPage .section-heading {
+  max-width: 650px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+#countryPage .section-heading h2,
+#countryPage .delivery-section h2 {
+  margin: 10px 0;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -1px;
+}
+
+#countryPage .section-heading > p:last-child,
+#countryPage .delivery-section > p {
+  color: var(--ak-muted);
+  line-height: 1.8;
+}
+
+#countryPage .country-games {
+  background: #fff;
+}
+
+#countryPage .game-card {
+  max-width: 760px;
+  margin: 22px auto;
+  padding: 28px;
+  border: 1px solid #e7e7e7;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 4%);
+}
+
+#countryPage .game-card h3 {
+  margin: 8px 0 14px;
+  font-size: 24px;
+}
+
+#countryPage .game-card > p:not(.eyebrow) {
+  line-height: 1.7;
+}
+
+#countryPage .game-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+#countryPage .game-options button {
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid #dedede;
+  border-radius: 14px;
+  background: #fafafa;
+  color: #171717;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+#countryPage .game-options button:hover:not(:disabled) {
+  border-color: #8eae47;
+  background: #f5faeb;
+}
+
+#countryPage .game-options button:disabled {
+  opacity: .75;
+  cursor: default;
+}
+
+#countryPage #flagMessage,
+#countryPage #playerMessage,
+#countryPage #foodMessage,
+#countryPage #eaglesMessage,
+#countryPage #quizMessage {
+  min-height: 24px;
+  font-weight: 700;
+}
+
+#countryPage .game-note,
+#countryPage .price-note {
+  color: var(--ak-muted);
+  text-align: center;
+  line-height: 1.7;
+}
+
+#countryPage .country-shop {
+  background: #f7f8f5;
+}
+
+#countryPage #countryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#countryPage #countryGrid > * {
+  min-width: 0;
+}
+
+#countryPage .delivery-section {
+  text-align: center;
+}
+
+#countryPage .delivery-section > p {
+  max-width: 600px;
+  margin: 12px auto 24px;
+}
+
+#countryPage .site-footer {
+  padding: 36px 6%;
+}
+
+#countryPage [hidden],
+#countryQuiz [hidden] {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  #countryPage .country-hero {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 42px 5%;
+  }
+
+  #countryPage .country-hero h1 {
+    letter-spacing: -2px;
+  }
+
+  #countryPage .country-hero-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  #countryPage .country-games,
+  #countryPage .country-shop,
+  #countryPage .delivery-section {
+    padding: 44px 5%;
+  }
+
+  #countryPage .game-card {
+    padding: 20px;
+  }
+
+  #countryPage .game-options {
+    grid-template-columns: 1fr;
+  }
+
+  #countryPage #countryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  #countryPage .button-secondary {
+    margin: 10px 0 0;
+  }
+}
+
+@media (max-width: 380px) {
+  #countryPage #countryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
