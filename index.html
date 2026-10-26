@@ -1,1115 +1,580 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta
-    name="description"
-    content="Find your next match-day look with AskofKobby. Shop football jerseys, explore national teams, discover promotions and represent your team."
-  >
-  <meta name="theme-color" content="#ffffff">
-  <title>AskofKobby | Wear the Game</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <!-- =========================
-       TOP ANNOUNCEMENT BAR
-  ========================== -->
-  <div class="topbar">
-    <p>YOUR NEXT MATCH-DAY LOOK STARTS HERE ⚽</p>
-  </div>
-  <!-- =========================
-       MAIN HEADER / NAVIGATION
-  ========================== -->
-  <header class="site-header">
-    <div class="nav-wrap wrap">
-      <a href="index.html" class="brand" aria-label="AskofKobby home">
-        <span class="brand-mark">AK</span>
-        <span class="brand-name">
-          <strong>AskofKobby</strong>
-          <small>WEAR THE GAME</small>
-        </span>
-      </a>
-      <button
-        class="menu-toggle"
-        id="menuToggle"
-        type="button"
-        aria-label="Open navigation menu"
-        aria-controls="navLinks"
-        aria-expanded="false"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-        <a href="#shop">Shop jerseys</a>
-        <a href="#national">National teams</a>
-        <a href="#finder">Find your jersey</a>
-        <a href="#promotions">Promotions</a>
-      </nav>
-      <button
-        class="cart-button"
-        id="openCart"
-        type="button"
-        aria-label="Open shopping cart"
-      >
-        <span>Cart</span>
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find your next match-day look with AskofKobby. Shop football jerseys, explore national teams, discover promotions and represent your team."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <title>AskofKobby | Wear the Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body id="top">
+    <div class="topbar">
+      <p>YOUR NEXT MATCH-DAY LOOK STARTS HERE ⚽</p>
     </div>
-  </header>
-  <!-- =========================
-       HERO SECTION
-  ========================== -->
-  <main>
-    <section class="hero wrap" aria-label="Welcome to AskofKobby">
-      <div class="hero-box">
-        <video
-          class="hero-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-hidden="true"
-        >
-          <source
-            src="mixkit-football-stadium-aerial-shot-4262-full-hd.mov"
-            type="video/quicktime"
-          >
-          <source
-            src="mixkit-football-stadium-aerial-shot-4262-full-hd.mov"
-            type="video/mp4"
-          >
-        </video>
-        <div class="hero-shade"></div>
-        <div class="hero-note">
-          <span class="hero-note-dot"></span>
-          YOUR TEAM. YOUR COLOURS. YOUR MOMENT.
-        </div>
-        <div class="hero-content">
-          <p class="eyebrow">FOR THE LOVE OF THE GAME</p>
-          <h1>Wear the game.</h1>
-          <p class="hero-description">
-            From your favourite club to your national team,
-            find the jersey that represents you.
-          </p>
-          <div class="hero-actions">
-            <a href="#shop" class="btn btn-primary">
-              Shop jerseys
-            </a>
-            <a href="#national" class="btn btn-secondary">
-              Explore national teams
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- =========================
-         SCROLLING TICKER
-    ========================== -->
-    <section class="ticker" aria-label="AskofKobby highlights">
-      <div class="ticker-track" aria-hidden="true">
-        <span>FOOTBALL CULTURE</span>
-        <span class="ticker-star">✳</span>
-        <span>YOUR CLUB</span>
-        <span class="ticker-star">✳</span>
-        <span>YOUR COUNTRY</span>
-        <span class="ticker-star">✳</span>
-        <span>MATCH-DAY READY</span>
-        <span class="ticker-star">✳</span>
-        <span>FOOTBALL CULTURE</span>
-        <span class="ticker-star">✳</span>
-        <span>YOUR CLUB</span>
-        <span class="ticker-star">✳</span>
-        <span>YOUR COUNTRY</span>
-        <span class="ticker-star">✳</span>
-        <span>MATCH-DAY READY</span>
-        <span class="ticker-star">✳</span>
-      </div>
-    </section>
-        <!-- =========================
-         JERSEY SHOP
-    ========================== -->
-    <section class="section shop-section wrap" id="shop">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">FIND YOUR COLOURS</p>
-          <h2>Made for match day.</h2>
-          <p class="section-description">
-            Your favourite clubs, iconic colours and the jerseys
-            you want to wear on match day.
-          </p>
-        </div>
-        <a href="#clubGrid" class="text-link">
-          Explore clubs <span aria-hidden="true">↘</span>
-        </a>
-      </div>
-      <!-- Club collections will be generated by JavaScript -->
-      <div
-        class="club-grid"
-        id="clubGrid"
-        aria-label="Football club collections"
-      ></div>
-      <!-- Selected club collection -->
-      <div class="club-collection" id="clubCollection" hidden>
-        <div class="collection-heading">
-          <div>
-            <p class="eyebrow">YOUR SELECTED CLUB</p>
-            <h3 id="collectionTitle">Club collection</h3>
-            <p id="collectionIntro">
-              Explore the available jerseys for this club.
-            </p>
-          </div>
-          <button
-            class="btn btn-secondary"
-            id="closeCollection"
-            type="button"
-          >
-            Close collection
-          </button>
-        </div>
-      </div>
-      <!-- Shop controls -->
-      <div class="shop-toolbar">
-        <div class="shop-search">
-          <label for="searchInput">Search jerseys</label>
-          <input
-            type="search"
-            id="searchInput"
-            placeholder="Search a club or jersey..."
-            autocomplete="off"
-          >
-        </div>
-        <div class="shop-filter">
-          <label for="sleeveFilter">Sleeve style</label>
-          <select id="sleeveFilter">
-            <option value="all">All styles</option>
-            <option value="short">Short sleeve</option>
-            <option value="long">Long sleeve</option>
-          </select>
-        </div>
-        <div class="shop-filter">
-          <label for="sortFilter">Sort by</label>
-          <select id="sortFilter">
-            <option value="default">Recommended</option>
-            <option value="name">Team name</option>
-          </select>
-        </div>
-      </div>
-      <!-- Main product grid -->
-      <div
-        class="product-grid"
-        id="productGrid"
-        aria-live="polite"
-      ></div>
-      <p class="shop-disclaimer">
-        Availability, jersey versions, sizes and prices are confirmed
-        before an order is completed.
-      </p>
-    </section>
-    <!-- =========================
-         FOOTBALL VIDEO SECTION
-    ========================== -->
-    <section class="section clips-section wrap" id="footballClips">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">BEYOND THE JERSEY</p>
-          <h2>It's more than a game.</h2>
-          <p class="section-description">
-            The atmosphere, the footwork and the moments that
-            make football what it is.
-          </p>
-        </div>
-      </div>
-      <div class="clips-grid">
-        <!-- Stadium video -->
-        <article class="clip-card">
-          <div class="clip-media">
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              aria-label="Aerial view of a football stadium"
-            >
-              <source
-                src="mixkit-football-stadium-aerial-shot-4262-full-hd.mov"
-                type="video/quicktime"
-              >
-              Your browser does not support embedded video.
-            </video>
-            <div class="clip-overlay">
-              <span class="clip-label">THE ATMOSPHERE</span>
-              <h3>Feel the game.</h3>
-            </div>
-          </div>
-        </article>
-        <!-- Dribbling video -->
-        <article class="clip-card">
-          <div class="clip-media">
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              aria-label="Football player dribbling past an opponent"
-            >
-              <source
-                src="mixkit-player-dribbling-in-a-one-on-one-in-a-soccer-43484-full-hd.mp4"
-                type="video/mp4"
-              >
-              Your browser does not support embedded video.
-            </video>
-            <div class="clip-overlay">
-              <span class="clip-label">ON THE PITCH</span>
-              <h3>Let the football talk.</h3>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-    <!-- =========================
-         NATIONAL TEAM COLLECTIONS
-    ========================== -->
 
-    <section class="section national-section wrap" id="national">
-
-      <div class="section-heading">
-
-        <div>
-          <p class="eyebrow">REPRESENT YOUR ROOTS</p>
-
-          <h2>Club pride. Country pride.</h2>
-
-          <p class="section-description">
-            Football brings people together. Show up for the
-            country you represent.
-          </p>
-        </div>
-
-      </div>
-
-
-      <div class="national-grid">
-
-        <!-- Ghana -->
-
-        <a href="ghana.html" class="national-card ghana-card">
-
-          <div class="national-card-top">
-            <span class="national-tag">GHANA</span>
-            <span class="national-arrow" aria-hidden="true">↗</span>
-          </div>
-
-          <div class="national-card-content">
-
-            <p class="eyebrow">BLACK STARS</p>
-
-            <h3>Carry the colours.</h3>
-
-            <p>
-              Celebrate Ghanaian football and support the
-              Black Stars.
-            </p>
-
-            <span class="national-card-link">
-              Explore Ghana jerseys
-            </span>
-
-          </div>
-
-        </a>
-
-
-        <!-- Nigeria -->
-
-        <a href="nigeria.html" class="national-card nigeria-card">
-
-          <div class="national-card-top">
-            <span class="national-tag">NIGERIA</span>
-            <span class="national-arrow" aria-hidden="true">↗</span>
-          </div>
-
-          <div class="national-card-content">
-
-            <p class="eyebrow">SUPER EAGLES</p>
-
-            <h3>Wear your green.</h3>
-
-            <p>
-              Represent Nigerian football and the Super Eagles.
-            </p>
-
-            <span class="national-card-link">
-              Explore Nigeria jerseys
-            </span>
-
-          </div>
-
-        </a>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         PROMOTIONS
-    ========================== -->
-
-    <section class="section promotions-section wrap" id="promotions">
-
-      <div class="section-heading">
-
-        <div>
-          <p class="eyebrow">MORE WAYS TO WIN</p>
-
-          <h2>Good football. Good deals.</h2>
-
-          <p class="section-description">
-            Check out the current offers, share the love of
-            football and get involved.
-          </p>
-        </div>
-
-      </div>
-
-
-      <div class="promo-grid">
-
-        <!-- Saturday Bonanza -->
-
-        <article class="promo-card promo-bonanza">
-
-          <div class="promo-card-top">
-            <span class="promo-label">WEEKEND OFFER</span>
-            <span class="promo-symbol" aria-hidden="true">✳</span>
-          </div>
-
-          <p class="promo-kicker">SATURDAYS · 9 AM–12 PM</p>
-
-          <h3>Saturday Bonanza</h3>
-
-          <p>
-            Get 15% off eligible short-sleeve supporters' jerseys
-            during the Saturday offer window.
-          </p>
-
-          <div class="promo-price">
-            <strong>GH₵110.50</strong>
-            <span>Regular price GH₵130</span>
-          </div>
-
-          <p class="promo-small">
-            Limited to the first five eligible customers.
-            Eligibility and availability must be confirmed.
-          </p>
-
-          <button
-            class="btn btn-primary promo-button"
-            type="button"
-            data-promo="bonanza"
-          >
-            View offer details
-          </button>
-
-        </article>
-
-
-        <!-- Referral promotion -->
-
-        <article class="promo-card promo-referral">
-
-          <div class="promo-card-top">
-            <span class="promo-label">SPREAD THE WORD</span>
-            <span class="promo-symbol" aria-hidden="true">↗</span>
-          </div>
-
-          <p class="promo-kicker">REFER TWO PEOPLE</p>
-
-          <h3>Refer Two, Win a Jersey</h3>
-
-          <p>
-            Introduce two people to AskofKobby and qualify for
-            the referral challenge when both complete confirmed
-            purchases.
-          </p>
-
-          <ul class="promo-list">
-            <li>Refer two people.</li>
-            <li>Keep proof of the completed purchases.</li>
-            <li>Submit the required details and complete the quiz.</li>
-            <li>Choose your preferred club, subject to availability.</li>
-          </ul>
-
-          <button
-            class="btn btn-primary promo-button"
-            type="button"
-            data-promo="referral"
-          >
-            How to participate
-          </button>
-
-        </article>
-
-
-        <!-- Social promotion -->
-
-        <article class="promo-card promo-share">
-
-          <div class="promo-card-top">
-            <span class="promo-label">COMMUNITY CHALLENGE</span>
-            <span class="promo-symbol" aria-hidden="true">♡</span>
-          </div>
-
-          <p class="promo-kicker">FOLLOW · SHARE · ENGAGE</p>
-
-          <h3>Win 30% Off</h3>
-
-          <p>
-            Join the AskofKobby social challenge, bring more
-            football supporters into the community and enter
-            the weekly draw.
-          </p>
-
-          <ul class="promo-list">
-            <li>Follow AskofKobby on Instagram.</li>
-            <li>Share and engage with the content for a week.</li>
-            <li>Bring at least ten people to follow or engage.</li>
-            <li>Submit the required evidence for the draw.</li>
-          </ul>
-
-          <button
-            class="btn btn-primary promo-button"
-            type="button"
-            data-promo="share"
-          >
-            View challenge rules
-          </button>
-
-        </article>
-
-      </div>
-
-
-      <p class="promo-disclaimer">
-        Participation requirements, verification and prize
-        availability apply. Open the individual offer for
-        the full instructions.
-      </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         SUPPORTER BOTTLES
-    ========================== -->
-
-    <section class="section bottles-section wrap" id="bottles">
-
-      <div class="bottle-layout">
-
-        <div class="bottle-visual">
-
-          <img
-            src="DD3A44E2-2988-4928-B94F-029C5AE1B549.png"
-            alt="Reference image for the AskofKobby supporter bottle concept"
-            loading="lazy"
-          >
-
-          <span class="bottle-image-note">
-            DESIGN REFERENCE
+    <header class="site-header">
+      <div class="nav-wrap wrap">
+        <a href="index.html" class="brand" aria-label="AskofKobby home">
+          <span class="brand-mark">AK</span>
+          <span class="brand-name">
+            <strong>AskofKobby</strong>
+            <small>WEAR THE GAME</small>
           </span>
+        </a>
 
-        </div>
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+          <a href="#shop">Shop</a>
+          <a href="#clubs">Collections</a>
+          <a href="#promos">Promotions</a>
+          <a href="#finder">Jersey Finder</a>
+          <a href="ghana.html">Ghana</a>
+          <a href="nigeria.html">Nigeria</a>
+        </nav>
 
+        <button
+          class="cart-button"
+          id="openCart"
+          type="button"
+          aria-label="Open shopping cart"
+        >
+          Cart
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
 
-        <div class="bottle-content">
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
 
-          <p class="eyebrow">COMING SOON</p>
+    <main>
+      <section class="hero wrap">
+        <div class="hero-box">
+          <video
+            class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            poster="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1600&q=80"
+          >
+            <source src="https://cdn.coverr.co/videos/coverr-football-game-1562209146598/1080p.mp4" type="video/mp4" />
+          </video>
+          <div class="hero-shade"></div>
 
-          <h2>Take your team everywhere.</h2>
-
-          <p>
-            We're exploring personalised supporter bottles for
-            football fans who want to carry their team spirit
-            beyond match day.
-          </p>
-
-          <div class="bottle-features">
-
-            <div class="bottle-feature">
-              <span class="bottle-feature-mark">01</span>
-              <div>
-                <strong>Your personal touch</strong>
-                <p>Explore supporter-inspired personalisation.</p>
-              </div>
-            </div>
-
-            <div class="bottle-feature">
-              <span class="bottle-feature-mark">02</span>
-              <div>
-                <strong>A clean, simple look</strong>
-                <p>A concept featuring a matte metal body and wooden lid.</p>
-              </div>
-            </div>
-
-            <div class="bottle-feature">
-              <span class="bottle-feature-mark">03</span>
-              <div>
-                <strong>Get updates</strong>
-                <p>Ask us about the concept and future availability.</p>
-              </div>
-            </div>
-
+          <div class="hero-note">
+            <span class="hero-note-dot"></span>
+            Live match-day stock
           </div>
 
-          <a
-            class="btn btn-primary"
-            href="https://wa.me/233545292437?text=Hi%20AskofKobby%2C%20I%27m%20interested%20in%20the%20supporter%20bottles.%20Please%20let%20me%20know%20when%20they%20become%20available."
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Join the interest list
-          </a>
-
-          <p class="bottle-disclaimer">
-            This is a design concept, not a confirmation that
-            the bottles are currently available for purchase.
-          </p>
-
+          <div class="hero-content">
+            <p class="eyebrow">AskofKobby</p>
+            <h1>Wear the game.</h1>
+            <p class="hero-description">
+              Discover football jerseys for your club, your country and your match-day mood.
+              Built for fans who want bold style, easy browsing and direct WhatsApp ordering.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#shop">Shop Jerseys</a>
+              <a class="btn btn-secondary" href="#finder">Find My Match</a>
+            </div>
+          </div>
         </div>
+      </section>
 
+      <div class="ticker" aria-label="Featured football brands">
+        <div class="ticker-track">
+          <span><span class="ticker-star">★</span> Premier League</span>
+          <span><span class="ticker-star">★</span> Champions League</span>
+          <span><span class="ticker-star">★</span> LaLiga</span>
+          <span><span class="ticker-star">★</span> Bundesliga</span>
+          <span><span class="ticker-star">★</span> Serie A</span>
+          <span><span class="ticker-star">★</span> Ghana</span>
+          <span><span class="ticker-star">★</span> Nigeria</span>
+          <span><span class="ticker-star">★</span> Match-Day Ready</span>
+
+          <span><span class="ticker-star">★</span> Premier League</span>
+          <span><span class="ticker-star">★</span> Champions League</span>
+          <span><span class="ticker-star">★</span> LaLiga</span>
+          <span><span class="ticker-star">★</span> Bundesliga</span>
+          <span><span class="ticker-star">★</span> Serie A</span>
+          <span><span class="ticker-star">★</span> Ghana</span>
+          <span><span class="ticker-star">★</span> Nigeria</span>
+          <span><span class="ticker-star">★</span> Match-Day Ready</span>
+        </div>
       </div>
 
-    </section>
-
-        <!-- =========================
-         JERSEY FINDER
-    ========================== -->
-
-    <section class="section finder-section wrap" id="finder">
-
-      <div class="finder-layout">
-
-        <div class="finder-intro">
-
-          <p class="eyebrow">NEED A LITTLE HELP?</p>
-
-          <h2>Let's find your jersey.</h2>
-
-          <p class="section-description">
-            Tell us what you're looking for and we'll help you
-            narrow down the available options.
-          </p>
-
-          <div class="finder-note">
-            <span class="finder-note-icon" aria-hidden="true">✳</span>
-
-            <p>
-              Choose your team and preferred sleeve style to
-              get started.
-            </p>
+      <section class="shop-section section wrap" id="shop">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Shop</p>
+            <h2>Find your next kit.</h2>
           </div>
-
+          <a class="text-link" href="#finder">
+            Need help picking one?
+            <span>→</span>
+          </a>
         </div>
 
+        <div class="club-grid" id="clubGrid" aria-live="polite"></div>
 
-        <form class="finder-form" id="finderForm">
+        <div class="club-collection" id="clubCollection" hidden>
+          <div class="collection-heading">
+            <div>
+              <p class="eyebrow">Selected collection</p>
+              <h3 id="collectionTitle">Club</h3>
+            </div>
+            <button class="btn btn-secondary" id="closeCollection" type="button">
+              Close collection
+            </button>
+          </div>
+          <p id="collectionIntro">Choose a jersey and add it to your cart to enquire.</p>
+        </div>
 
-          <div class="form-field">
-
-            <label for="finderTeam">Which team?</label>
-
-            <select id="finderTeam" name="team" required>
-              <option value="">Choose a team</option>
-              <option value="Arsenal">Arsenal</option>
-              <option value="Manchester City">Manchester City</option>
-              <option value="Manchester United">Manchester United</option>
-              <option value="Real Madrid">Real Madrid</option>
-              <option value="FC Barcelona">FC Barcelona</option>
-              <option value="Liverpool">Liverpool</option>
-              <option value="Chelsea">Chelsea</option>
-              <option value="Bayern Munich">Bayern Munich</option>
-              <option value="AC Milan">AC Milan</option>
-              <option value="Paris Saint-Germain">Paris Saint-Germain</option>
-              <option value="Juventus">Juventus</option>
-              <option value="Ajax">Ajax</option>
-              <option value="Palmeiras">Palmeiras</option>
-              <option value="Athletic Club Bilbao">Athletic Club Bilbao</option>
-              <option value="Marseille">Marseille</option>
-              <option value="Lyon">Lyon</option>
-              <option value="Ghana">Ghana</option>
-              <option value="Nigeria">Nigeria</option>
-              <option value="Other">Another team</option>
-            </select>
-
+        <div class="shop-toolbar">
+          <div class="shop-search">
+            <label for="searchInput">Search jerseys</label>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search by team, colour, sponsor..."
+            />
           </div>
 
-
-          <div class="form-field">
-
-            <label for="finderSleeve">Sleeve preference</label>
-
-            <select id="finderSleeve" name="sleeve" required>
-              <option value="">Choose a style</option>
+          <div class="shop-filter">
+            <label for="sleeveFilter">Sleeve</label>
+            <select id="sleeveFilter">
+              <option value="all">All sleeves</option>
               <option value="short">Short sleeve</option>
               <option value="long">Long sleeve</option>
-              <option value="either">Either style</option>
             </select>
-
           </div>
 
-
-          <div class="form-field">
-
-            <label for="finderColour">Preferred colours (optional)</label>
-
-            <input
-              type="text"
-              id="finderColour"
-              name="colour"
-              placeholder="e.g. red, white, green"
-            >
-
+          <div class="shop-filter">
+            <label for="sortFilter">Sort</label>
+            <select id="sortFilter">
+              <option value="default">Default</option>
+              <option value="name">Colour</option>
+            </select>
           </div>
-
-
-          <button class="btn btn-primary finder-submit" type="submit">
-            Find my jersey
-          </button>
-
-
-          <div
-            class="finder-result"
-            id="finderResult"
-            aria-live="polite"
-          ></div>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         NEWSLETTER / UPDATES
-    ========================== -->
-
-    <section class="section updates-section wrap" id="updates">
-
-      <div class="updates-box">
-
-        <div class="updates-copy">
-
-          <p class="eyebrow">STAY IN THE LOOP</p>
-
-          <h2>Don't miss the next drop.</h2>
-
-          <p>
-            Keep up with new jerseys, promotions and updates
-            from AskofKobby.
-          </p>
-
         </div>
 
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
 
-        <form class="newsletter-form" id="newsletterForm">
+        <p class="shop-disclaimer">
+          Prices are confirmed through WhatsApp before checkout. Add your preferred jerseys and
+          message AskofKobby to confirm size, version and availability.
+        </p>
+      </section>
 
-          <label for="newsletterEmail">
-            Your email address
-          </label>
+      <section class="section wrap" id="clubs">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">National pride</p>
+            <h2>Support your country.</h2>
+          </div>
+        </div>
 
-          <div class="newsletter-input-row">
+        <div class="national-grid">
+          <article class="national-card ghana-card">
+            <div class="national-card-top">
+              <span class="national-tag">GH🇬🇭</span>
+              <span class="national-arrow">→</span>
+            </div>
 
-            <input
-              type="email"
-              id="newsletterEmail"
-              name="email"
-              placeholder="you@example.com"
-              autocomplete="email"
-              required
-            >
+            <div class="national-card-content">
+              <p class="eyebrow">Ghana</p>
+              <h3>Black Stars energy</h3>
+              <p>Premium national-team fans’ shirts and iconic Ghana colours for match-day pride.</p>
+              <a class="national-card-link" href="ghana.html">Explore Ghana collection</a>
+            </div>
+          </article>
 
-            <button class="btn btn-primary" type="submit">
-              Keep me updated
+          <article class="national-card nigeria-card">
+            <div class="national-card-top">
+              <span class="national-tag">NG🇳🇬</span>
+              <span class="national-arrow">→</span>
+            </div>
+
+            <div class="national-card-content">
+              <p class="eyebrow">Nigeria</p>
+              <h3>Super Eagles style</h3>
+              <p>Bold, energetic and ready for the next away trip or home fixture in true Nigerian style.</p>
+              <a class="national-card-link" href="nigeria.html">Explore Nigeria collection</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="shop-toolbar" style="margin-top: 24px;">
+          <div class="shop-search">
+            <label for="ghanaProducts">Ghana jerseys</label>
+            <div class="product-grid" id="ghanaProducts" aria-live="polite"></div>
+          </div>
+          <div class="shop-search">
+            <label for="nigeriaProducts">Nigeria jerseys</label>
+            <div class="product-grid" id="nigeriaProducts" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="promos">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Offers</p>
+            <h2>Seasonal promos and challenges.</h2>
+          </div>
+        </div>
+
+        <div class="promo-grid">
+          <article class="promo-card">
+            <div class="promo-card-top">
+              <span class="promo-label">Saturday offer</span>
+              <span class="promo-symbol">⚽</span>
+            </div>
+
+            <div>
+              <p class="promo-kicker">Lifestyle deal</p>
+              <h3>Saturday Bonanza</h3>
+            </div>
+
+            <ul class="promo-list">
+              <li>First five eligible customers only.</li>
+              <li>Short-sleeved supporters’ jerseys.</li>
+              <li>15% markdown on selected stock.</li>
+            </ul>
+
+            <div class="promo-price">
+              <strong>GH₵110.50</strong>
+              <span>Regular GH₵130</span>
+            </div>
+
+            <button class="btn btn-primary promo-button" type="button" data-promo="bonanza">
+              View offer
+            </button>
+          </article>
+
+          <article class="promo-card">
+            <div class="promo-card-top">
+              <span class="promo-label">Referral</span>
+              <span class="promo-symbol">🎯</span>
+            </div>
+
+            <div>
+              <p class="promo-kicker">Campaign</p>
+              <h3>Refer Two, Win a Jersey</h3>
+            </div>
+
+            <ul class="promo-list">
+              <li>Earn entry by referring two confirmed buyers.</li>
+              <li>Track your referrals with AskofKobby.</li>
+              <li>Win a club jersey based on availability.</li>
+            </ul>
+
+            <div class="promo-price">
+              <strong>Win</strong>
+              <span>Club jersey</span>
+            </div>
+
+            <button class="btn btn-primary promo-button" type="button" data-promo="referral">
+              Learn more
+            </button>
+          </article>
+
+          <article class="promo-card">
+            <div class="promo-card-top">
+              <span class="promo-label">Weekly</span>
+              <span class="promo-symbol">🏆</span>
+            </div>
+
+            <div>
+              <p class="promo-kicker">Challenge</p>
+              <h3>Follow, Share and Win 30%</h3>
+            </div>
+
+            <ul class="promo-list">
+              <li>Follow AskofKobby on Instagram.</li>
+              <li>Share the weekly campaign post.</li>
+              <li>Score a 30% discount in draw.</li>
+            </ul>
+
+            <div class="promo-price">
+              <strong>30%</strong>
+              <span>Discount draw</span>
+            </div>
+
+            <button class="btn btn-primary promo-button" type="button" data-promo="share">
+              View challenge
+            </button>
+          </article>
+        </div>
+
+        <p class="promo-disclaimer">
+          Promo terms are confirmed by message. Please ask before assuming a discount, available stock or eligibility.
+        </p>
+      </section>
+
+      <section class="section wrap">
+        <div class="bottle-layout">
+          <div class="bottle-visual">
+            <img
+              src="https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=1200&q=80"
+              alt="Football jersey display"
+            />
+            <div class="bottle-image-note">LIMITED STOCK</div>
+          </div>
+
+          <div class="bottle-content">
+            <p class="eyebrow">Premium football essentials</p>
+            <h2>Built for fans who show up in style.</h2>
+
+            <p>
+              Our store is designed for supporters who want club pride without compromise.
+              Choose your team, match your mood and message us to confirm size, stock and shipping.
+            </p>
+
+            <div class="bottle-features">
+              <div class="bottle-feature">
+                <div class="bottle-feature-mark">01</div>
+                <div>
+                  <strong>Club-first curation</strong>
+                  <p>Curated jerseys from major clubs and supporter favourites, ready for match-day energy.</p>
+                </div>
+              </div>
+
+              <div class="bottle-feature">
+                <div class="bottle-feature-mark">02</div>
+                <div>
+                  <strong>Easy WhatsApp checkout</strong>
+                  <p>Build your basket, then message AskofKobby to confirm versions, sizing and final total.</p>
+                </div>
+              </div>
+
+              <div class="bottle-feature">
+                <div class="bottle-feature-mark">03</div>
+                <div>
+                  <strong>Fast support</strong>
+                  <p>Need a colour match or a specific team? Use the jersey finder and ask directly on WhatsApp.</p>
+                </div>
+              </div>
+            </div>
+
+            <a class="btn btn-primary" href="#shop">Shop now</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="finder">
+        <div class="finder-layout">
+          <div class="finder-intro">
+            <p class="eyebrow">Need help?</p>
+            <h2>Find the right jersey fast.</h2>
+            <p>
+              Search by team, sleeve style and preferred colour. If there’s no exact match,
+              we’ll help you ask directly on WhatsApp for the closest option.
+            </p>
+
+            <div class="finder-note">
+              <div class="finder-note-icon">✓</div>
+              <p>Orders are confirmed once AskofKobby confirms availability, sizes and delivery details.</p>
+            </div>
+          </div>
+
+          <form class="finder-form" id="finderForm">
+            <div class="form-field">
+              <label for="finderTeam">Team</label>
+              <select id="finderTeam">
+                <option value="any">Any team</option>
+                <option value="Arsenal">Arsenal</option>
+                <option value="Manchester City">Manchester City</option>
+                <option value="Manchester United">Manchester United</option>
+                <option value="Liverpool">Liverpool</option>
+                <option value="Chelsea">Chelsea</option>
+                <option value="FC Barcelona">FC Barcelona</option>
+                <option value="Real Madrid">Real Madrid</option>
+                <option value="Paris Saint-Germain">Paris Saint-Germain</option>
+                <option value="Juventus">Juventus</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="finderSleeve">Sleeve</label>
+              <select id="finderSleeve">
+                <option value="either">Either</option>
+                <option value="short">Short sleeve</option>
+                <option value="long">Long sleeve</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="finderColour">Colour</label>
+              <input id="finderColour" type="text" placeholder="e.g. red, blue, white" />
+            </div>
+
+            <button class="btn btn-primary finder-submit" type="submit">
+              Search matches
             </button>
 
-          </div>
-
-          <p
-            class="newsletter-message"
-            id="newsletterMessage"
-            aria-live="polite"
-          ></p>
-
-          <p class="newsletter-note">
-            Submitting this form does not subscribe you to a
-            mailing list unless a newsletter service is connected.
-          </p>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         DELIVERY INFORMATION
-    ========================== -->
-
-    <section class="section delivery-section wrap" id="delivery">
-
-      <div class="delivery-box">
-
-        <div class="delivery-icon" aria-hidden="true">
-          <span>↗</span>
+            <div class="finder-result" id="finderResult"></div>
+          </form>
         </div>
-
-
-        <div class="delivery-copy">
-
-          <p class="eyebrow">DELIVERY INFORMATION</p>
-
-          <h2>From our hands to yours.</h2>
-
-          <p>
-            Delivery within Ghana is generally expected within
-            24 hours, depending on location and availability.
-            Delivery charges and the confirmed arrival time will
-            be communicated through WhatsApp before your order
-            is finalised.
-          </p>
-
-        </div>
-
-
-        <a
-          class="btn btn-primary"
-          href="https://wa.me/233545292437?text=Hi%20AskofKobby%2C%20I%27d%20like%20to%20ask%20about%20delivery%20charges%20and%20timing."
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ask about delivery
-        </a>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         SITE FOOTER
-    ========================== -->
-
-    <footer class="site-footer">
-
-      <div class="footer-main wrap">
-
-        <div class="footer-brand-column">
-
-          <a
-            href="index.html"
-            class="brand footer-brand"
-            aria-label="AskofKobby home"
-          >
-
-            <span class="brand-mark">AK</span>
-
-            <span class="brand-name">
-              <strong>AskofKobby</strong>
-              <small>WEAR THE GAME</small>
-            </span>
-
-          </a>
-
-
-          <p class="footer-description">
-            For the love of football, the pride of your club
-            and the colours that represent you.
-          </p>
-
-
-          <a
-            class="footer-social-link"
-            href="https://instagram.com/askof.kobby"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Instagram ↗
-          </a>
-
-        </div>
-
-
-
-        <div class="footer-links-column">
-
-          <h3>Explore</h3>
-
-          <a href="#shop">Shop jerseys</a>
-
-          <a href="#national">National teams</a>
-
-          <a href="#finder">Jersey finder</a>
-
-          <a href="#promotions">Promotions</a>
-
-          <a href="#footballClips">Football clips</a>
-
-        </div>
-
-
-
-        <div class="footer-links-column">
-
-          <h3>National teams</h3>
-
-          <a href="ghana.html">Ghana jerseys</a>
-
-          <a href="nigeria.html">Nigeria jerseys</a>
-
-        </div>
-
-
-
-        <div class="footer-links-column">
-
-          <h3>Need help?</h3>
-
-          <a href="#delivery">Delivery information</a>
-
-          <a
-            href="https://wa.me/233545292437?text=Hi%20AskofKobby%2C%20I%20need%20help%20with%20a%20jersey%20enquiry."
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Contact us on WhatsApp ↗
-          </a>
-
-        </div>
-
-      </div>
-
-
-
-      <div class="footer-bottom wrap">
-
-        <p>
-          © <span id="year"></span> AskofKobby. All rights reserved.
-        </p>
-
-        <a href="#top" class="back-to-top">
-          Back to top ↑
-        </a>
-
-      </div>
-
-    </footer>
-
-        <!-- =========================
-         PROMOTION DETAILS MODAL
-    ========================== -->
-
-    <div
-      class="promo-modal"
-      id="promoModal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="promoModalTitle"
-      aria-describedby="promoModalBody"
-      hidden
-    >
-
-      <div class="promo-modal-backdrop" data-close-promo></div>
-
-
-      <div class="promo-modal-card">
-
-        <div class="promo-modal-header">
-
-          <span class="promo-label">ASKOFKOBBY OFFERS</span>
-
-          <button
-            class="modal-close"
-            id="closePromoModal"
-            type="button"
-            aria-label="Close promotion details"
-          >
-            &times;
-          </button>
-
-        </div>
-
-
-        <div class="promo-modal-content">
-
-          <p class="eyebrow" id="promoModalKicker">
-            PROMOTION DETAILS
-          </p>
-
-          <h2 id="promoModalTitle">
-            Discover the offer.
-          </h2>
-
-          <div id="promoModalBody">
+      </section>
+
+      <section class="section wrap">
+        <div class="updates-box">
+          <div class="updates-copy">
+            <p class="eyebrow">Updates</p>
+            <h2>Get new jersey drops before they sell out.</h2>
             <p>
-              Select a promotion to view its participation
-              requirements and details.
+              Be first to know when new colourways, special club editions and country drops land.
             </p>
           </div>
 
+          <form class="newsletter-form" id="newsletterForm">
+            <label for="newsletterEmail">Email updates</label>
+            <div class="newsletter-input-row">
+              <input id="newsletterEmail" type="email" placeholder="Enter your email address" />
+              <button class="btn btn-primary" type="submit">Join</button>
+            </div>
+            <p id="newsletterMessage" class="newsletter-message" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
 
-          <a
-            class="btn btn-primary"
-            id="promoApply"
-            href="https://wa.me/233545292437"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Enquire on WhatsApp
-          </a>
+      <section class="section wrap">
+        <div class="delivery-box">
+          <div class="delivery-icon">🚚</div>
 
+          <div class="delivery-copy">
+            <p class="eyebrow">Delivery</p>
+            <h2>Quick ordering. Simple follow-up.</h2>
+            <p>
+              Add products to cart, confirm your interest on WhatsApp and let AskofKobby
+              help you with availability, size, versions and the final total.
+            </p>
+          </div>
+
+          <a class="btn btn-primary" href="#shop">Start shopping</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-main">
+          <div class="footer-brand-column">
+            <div class="brand footer-brand">
+              <span class="brand-mark">AK</span>
+              <span class="brand-name">
+                <strong>AskofKobby</strong>
+                <small>WEAR THE GAME</small>
+              </span>
+            </div>
+            <p class="footer-description">
+              Football jerseys, fan style and club pride for match-day energy.
+            </p>
+            <a class="footer-social-link" href="https://instagram.com/askof.kobby" target="_blank" rel="noopener noreferrer">
+              Instagram: @askof.kobby
+            </a>
+          </div>
+
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <a href="#shop">Featured jerseys</a>
+            <a href="#finder">Jersey finder</a>
+            <a href="#promos">Offers</a>
+          </div>
+
+          <div class="footer-links-column">
+            <h3>Countries</h3>
+            <a href="ghana.html">Ghana</a>
+            <a href="nigeria.html">Nigeria</a>
+            <a href="#clubGrid">Collections</a>
+          </div>
+
+          <div class="footer-links-column">
+            <h3>Support</h3>
+            <a href="https://wa.me/233545292437" target="_blank" rel="noopener noreferrer">
+              WhatsApp
+            </a>
+            <a href="#top">Back to top</a>
+            <a href="mailto:askofkobby@gmail.com">Email us</a>
+          </div>
         </div>
 
+        <div class="footer-bottom">
+          <p>© <span id="year">2026</span> AskofKobby. All rights reserved.</p>
+          <a class="back-to-top" href="#top">Back to top ↑</a>
+        </div>
       </div>
+    </footer>
 
+    <div class="promo-modal" id="promoModal" hidden aria-hidden="true">
+      <div class="promo-modal-backdrop" data-close-promo="true"></div>
+
+      <div class="promo-modal-card" role="dialog" aria-modal="true" aria-labelledby="promoModalTitle">
+        <div class="promo-modal-header">
+          <p class="promo-label" id="promoModalKicker">Offer</p>
+          <button class="modal-close" id="closePromoModal" type="button" aria-label="Close offer modal">
+            ×
+          </button>
+        </div>
+
+        <div class="promo-modal-content">
+          <h2 id="promoModalTitle">Offer title</h2>
+          <div id="promoModalBody"></div>
+          <button class="btn btn-primary" id="promoApply" type="button">
+            Ask on WhatsApp
+          </button>
+        </div>
+      </div>
     </div>
 
+    <div class="cart-backdrop" id="cartBackdrop"></div>
 
-
-    <!-- =========================
-         SHOPPING CART DRAWER
-    ========================== -->
-
-    <div
-      class="cart-backdrop"
-      id="cartBackdrop"
-      hidden
-    ></div>
-
-
-    <aside
-      class="cart-panel"
-      id="cartPanel"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="cartTitle"
-      aria-hidden="true"
-      inert
-    >
-
+    <aside class="cart-panel" id="cartPanel" aria-hidden="true" inert>
       <div class="cart-header">
-
-        <div>
-
-          <p class="eyebrow">YOUR SELECTION</p>
-
-          <h2 id="cartTitle">Your cart</h2>
-
-        </div>
-
-
-        <button
-          class="cart-close"
-          id="closeCart"
-          type="button"
-          aria-label="Close shopping cart"
-        >
-          &times;
+        <h3>Your cart</h3>
+        <button class="cart-close" id="closeCart" type="button" aria-label="Close cart">
+          ×
         </button>
-
       </div>
 
-
-
-      <div
-        class="cart-items"
-        id="cartItems"
-        aria-live="polite"
-      >
-
-        <p class="cart-empty">
-          Your cart is empty. Find a jersey you love to get started.
-        </p>
-
-      </div>
-
-
+      <div class="cart-items" id="cartItems"></div>
 
       <div class="cart-footer">
-
-        <div class="cart-total-row">
-
-          <span>Estimated total</span>
-
-          <strong id="cartTotal">Price on request</strong>
-
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cartTotal">Price to confirm</strong>
         </div>
-
-
-        <p class="cart-note">
-          Jersey prices, sizes and availability must be confirmed
-          before payment.
-        </p>
-
-
-        <button
-          class="btn btn-primary checkout-button"
-          id="checkoutButton"
-          type="button"
-        >
-          Continue on WhatsApp
+        <button class="btn btn-primary checkout-button" id="checkoutButton" type="button">
+          Enquire on WhatsApp
         </button>
-
-
-        <a href="#shop" class="cart-continue">
-          Continue shopping
-        </a>
-
       </div>
-
     </aside>
 
-
-
-    <!-- =========================
-         TOAST NOTIFICATION
-    ========================== -->
-
-    <div
-      class="toast"
-      id="toast"
-      role="status"
-      aria-live="polite"
-      aria-atomic="true"
-    ></div>
-
-
-  </main>
-
-
-  <!-- =========================
-       END OF DOCUMENT
-  ========================== -->
-
-</body>
+    <div id="toast" class="toast" aria-live="polite"></div>
+  </body>
 </html>
