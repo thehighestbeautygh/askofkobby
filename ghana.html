@@ -1,341 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
-
-  <title>Ghana Jerseys | AskofKobby</title>
-  <meta
-    name="description"
-    content="Explore Ghana national football jerseys, play football trivia, and order through AskofKobby."
-  >
-
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-
-<body>
-  <div class="topbar">
-    <p>AskofKobby — Football Jerseys. Your Club. Your Colours.</p>
-  </div>
-
-  <header class="site-header">
-    <a href="index.html" class="logo" aria-label="AskofKobby home">
-      AskofKobby<span>.</span>
-    </a>
-
-    <button
-      id="menuToggle"
-      class="menu-toggle"
-      type="button"
-      aria-label="Open navigation"
-      aria-controls="navLinks"
-      aria-expanded="false"
-    >
-      ☰
-    </button>
-
-    <nav id="navLinks" class="navlinks">
-      <a href="index.html">Home</a>
-      <a href="ghana.html" aria-current="page">Ghana</a>
-      <a href="nigeria.html">Nigeria</a>
-      <a href="index.html#shop">Club Jerseys</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-
-    <button
-      id="openCart"
-      class="cart-button"
-      type="button"
-      aria-label="Open shopping cart"
-    >
-      Cart <span id="cartCount">0</span>
-    </button>
-  </header>
-
-  <main id="countryPage" data-country="Ghana">
-
-    <!-- HERO -->
-    <section class="country-hero">
-      <div class="country-hero-content">
-        <p class="eyebrow">THE BLACK STARS</p>
-
-        <h1>Ghana 🇬🇭</h1>
-
-        <p>
-          Red, gold and green. Celebrate Ghanaian football
-          and find your national team jersey.
-        </p>
-
-        <a href="#countryShop" class="button">
-          Explore Ghana Jerseys
-        </a>
-
-        <a href="#countryGames" class="button button-secondary">
-          Play Football Trivia
-        </a>
-      </div>
-
-      <div class="country-hero-media">
-        <video
-          class="country-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-label="Ghana football video"
-        >
-          <source src="export_1792882270141.mov" type="video/quicktime">
-        </video>
-      </div>
-    </section>
-
-    <!-- GAMES -->
-    <section id="countryGames" class="country-games">
-      <div class="section-heading">
-        <p class="eyebrow">TEST YOUR KNOWLEDGE</p>
-        <h2>Ghana Football Games</h2>
-        <p>
-          Take a quick break, answer the questions,
-          and see how much you know.
-        </p>
-      </div>
-
-      <!-- GAME 1: FLAG CHALLENGE -->
-      <article id="flagGame" class="game-card">
-        <p class="eyebrow">GAME 01</p>
-        <h3>The Ghana Flag Challenge</h3>
-
-        <p>
-          Which colours appear on Ghana's national flag?
-        </p>
-
-        <div class="game-options" id="flagAnswers">
-          <button type="button" data-answer="wrong">
-            Red, white and blue
-          </button>
-
-          <button type="button" data-answer="correct">
-            Red, gold and green
-          </button>
-
-          <button type="button" data-answer="wrong">
-            Green, black and white
-          </button>
-        </div>
-
-        <p id="flagMessage" aria-live="polite"></p>
-
-        <a
-          id="flagClaim"
-          class="button"
-          href="https://wa.me/233545292437?text=Hello%20AskofKobby!%20I%20would%20like%20to%20ask%20about%20the%20Ghana%20flag%20game%20discount."
-          target="_blank"
-          rel="noopener noreferrer"
-          hidden
-        >
-          Ask About Your Offer
-        </a>
-      </article>
-
-      <!-- GAME 2: FOUR-QUESTION QUIZ -->
-      <article id="countryQuiz" class="game-card">
-        <p class="eyebrow">GAME 02</p>
-        <h3>How Well Do You Know Ghana?</h3>
-
-        <p id="quizProgress" aria-live="polite">
-          Get ready to play.
-        </p>
-
-        <h4 id="quizQuestion">Football Trivia</h4>
-
-        <p id="quizPrompt">
-          Your questions will appear here.
-        </p>
-
-        <div
-          id="quizAnswers"
-          class="game-options"
-        ></div>
-
-        <p id="quizMessage" aria-live="polite"></p>
-
-        <button
-          id="quizNext"
-          class="button"
-          type="button"
-          hidden
-        >
-          Next Question
-        </button>
-      </article>
-
-      <!-- GAME 3: PLAYER KNOWLEDGE -->
-      <article class="game-card">
-        <p class="eyebrow">GAME 03</p>
-        <h3>Know Your Black Stars</h3>
-
-        <p>
-          Which Ghanaian player is known for playing
-          as an attacking midfielder and representing Ghana
-          internationally?
-        </p>
-
-        <div id="playerAnswer" class="game-options">
-          <button type="button" data-answer="wrong">
-            Victor Osimhen
-          </button>
-
-          <button type="button" data-answer="correct">
-            Mohammed Kudus
-          </button>
-
-          <button type="button" data-answer="wrong">
-            Alex Iwobi
-          </button>
-        </div>
-
-        <p id="playerMessage" aria-live="polite"></p>
-      </article>
-
-      <p class="game-note">
-        Offers are subject to confirmation by AskofKobby.
-        Winning a game does not automatically guarantee a discount.
-      </p>
-    </section>
-
-    <!-- NATIONAL JERSEYS -->
-    <section id="countryShop" class="country-shop">
-      <div class="section-heading">
-        <p class="eyebrow">GHANA COLLECTION</p>
-        <h2>Ghana National Jerseys</h2>
-
-        <p>
-          Browse the available designs and contact us
-          to confirm prices, sizes and availability.
-        </p>
-      </div>
-
-      <div
-        id="countryGrid"
-        class="product-grid"
-        aria-live="polite"
-      ></div>
-
-      <p class="price-note">
-        Prices on request. Contact AskofKobby for availability.
-      </p>
-    </section>
-
-    <!-- DELIVERY -->
-    <section class="delivery-section">
-      <h2>Delivery Information</h2>
-
-      <p>
-        Contact us on WhatsApp to confirm your location,
-        delivery arrangements and any applicable charges.
-      </p>
-
-      <a
-        class="button"
-        href="https://wa.me/233545292437?text=Hello%20AskofKobby!%20I%20would%20like%20to%20ask%20about%20Ghana%20jersey%20availability%20and%20delivery."
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Ask About Delivery
-      </a>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <a href="index.html" class="logo">
-      AskofKobby<span>.</span>
-    </a>
-
-    <p>Football jerseys. Your club. Your colours.</p>
-
-    <div class="footer-links">
-      <a
-        href="https://instagram.com/askof.kobby"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Instagram
-      </a>
-
-      <a
-        href="https://wa.me/233545292437"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        WhatsApp
-      </a>
-
-      <a href="index.html">Home</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore Ghana football jerseys and supporter gear from AskofKobby."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Ghana Jerseys | AskofKobby</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body id="top">
+    <div class="topbar">
+      <p>YOUR NEXT MATCH-DAY LOOK STARTS HERE ⚽</p>
     </div>
 
-    <p>&copy; <span id="year"></span> AskofKobby.</p>
-  </footer>
+    <header class="site-header">
+      <div class="nav-wrap wrap">
+        <a href="index.html" class="brand" aria-label="AskofKobby home">
+          <span class="brand-mark">AK</span>
+          <span class="brand-name">
+            <strong>AskofKobby</strong>
+            <small>WEAR THE GAME</small>
+          </span>
+        </a>
 
-  <!-- CART -->
-  <div
-    class="cart-panel"
-    id="cartPanel"
-    aria-hidden="true"
-  >
-    <div class="cart-backdrop" id="cartBackdrop"></div>
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+          <a href="index.html#shop">Shop</a>
+          <a href="index.html#clubs">Collections</a>
+          <a href="index.html#promos">Promotions</a>
+          <a href="index.html#finder">Jersey Finder</a>
+          <a href="ghana.html">Ghana</a>
+          <a href="nigeria.html">Nigeria</a>
+        </nav>
 
-    <aside
-      class="cart-drawer"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="cartTitle"
-    >
-      <div class="cart-header">
-        <h2 id="cartTitle">Your Cart</h2>
+        <button class="cart-button" id="openCart" type="button" aria-label="Open shopping cart">
+          Cart
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
 
         <button
-          id="closeCart"
+          class="menu-toggle"
+          id="menuToggle"
           type="button"
-          aria-label="Close cart"
+          aria-label="Open navigation menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
         >
-          &times;
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="countryPage" data-country="Ghana">
+      <section class="hero wrap">
+        <div
+          class="hero-box"
+          style="
+            background:
+              linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
+              url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1600&q=80')
+                center/cover no-repeat;
+          "
+        >
+          <div class="hero-shade"></div>
+
+          <div class="hero-note">
+            <span class="hero-note-dot"></span>
+            Ghana supporter stock
+          </div>
+
+          <div class="hero-content">
+            <p class="eyebrow">Ghana</p>
+            <h1>Black Stars pride.</h1>
+            <p class="hero-description">
+              Support the Black Stars in colour with Ghana-inspired jerseys and national-team editions from AskofKobby.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#countryShop">View collection</a>
+              <a class="btn btn-secondary" href="index.html#finder">Find a match</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="countryShop">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Ghana</p>
+            <h2>National team collection.</h2>
+          </div>
+
+          <button class="btn btn-secondary" id="shopShortcut" type="button">
+            Go to featured shop
+          </button>
+        </div>
+
+        <div class="product-grid" id="countryGrid" aria-live="polite"></div>
+
+        <p class="shop-disclaimer">
+          Add your favourite Ghana style to the cart and send a WhatsApp enquiry to confirm stock, sizes and final pricing.
+        </p>
+      </section>
+
+      <section class="section wrap">
+        <div class="updates-box">
+          <div class="updates-copy">
+            <p class="eyebrow">Ghana football quiz</p>
+            <h2>Test your Black Stars knowledge.</h2>
+            <p>
+              Ready for a quick challenge? Answer the questions below to see how well you know Ghana football.
+            </p>
+          </div>
+
+          <div id="countryQuiz" class="finder-form" aria-live="polite">
+            <div class="shop-search">
+              <label for="quizProgress">Progress</label>
+              <p id="quizProgress" style="margin: 0; font-size: 12px; font-weight: 800; color: var(--muted);">Question 1 of 4</p>
+            </div>
+
+            <div class="form-field">
+              <label for="quizQuestion">Round</label>
+              <p id="quizQuestion" style="margin: 0; font-weight: 800; font-size: 14px;">Round 1</p>
+            </div>
+
+            <div class="form-field">
+              <label for="quizPrompt">Question</label>
+              <p id="quizPrompt" style="margin: 0; color: var(--ink); font-size: 15px; line-height: 1.7;"></p>
+            </div>
+
+            <div id="quizAnswers" class="finder-results-grid" style="grid-template-columns: 1fr;"></div>
+
+            <p id="quizMessage" class="newsletter-message" aria-live="polite"></p>
+
+            <button class="btn btn-primary" id="quizNext" type="button" hidden>Next question</button>
+
+            <button class="btn btn-primary" id="flagClaim" type="button" hidden>
+              Claim Ghana flag reward
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-main">
+          <div class="footer-brand-column">
+            <div class="brand footer-brand">
+              <span class="brand-mark">AK</span>
+              <span class="brand-name">
+                <strong>AskofKobby</strong>
+                <small>WEAR THE GAME</small>
+              </span>
+            </div>
+            <p class="footer-description">
+              Football jerseys, fan style and club pride for match-day energy.
+            </p>
+            <a class="footer-social-link" href="https://instagram.com/askof.kobby" target="_blank" rel="noopener noreferrer">
+              Instagram: @askof.kobby
+            </a>
+          </div>
+
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <a href="index.html#shop">Featured jerseys</a>
+            <a href="index.html#finder">Jersey finder</a>
+            <a href="index.html#promos">Offers</a>
+          </div>
+
+          <div class="footer-links-column">
+            <h3>Countries</h3>
+            <a href="ghana.html">Ghana</a>
+            <a href="nigeria.html">Nigeria</a>
+            <a href="index.html#clubs">Collections</a>
+          </div>
+
+          <div class="footer-links-column">
+            <h3>Support</h3>
+            <a href="https://wa.me/233545292437" target="_blank" rel="noopener noreferrer">
+              WhatsApp
+            </a>
+            <a href="#top">Back to top</a>
+            <a href="mailto:askofkobby@gmail.com">Email us</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© <span id="year">2026</span> AskofKobby. All rights reserved.</p>
+          <a class="back-to-top" href="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="cart-backdrop" id="cartBackdrop"></div>
+
+    <aside class="cart-panel" id="cartPanel" aria-hidden="true" inert>
+      <div class="cart-header">
+        <h3>Your cart</h3>
+        <button class="cart-close" id="closeCart" type="button" aria-label="Close cart">
+          ×
         </button>
       </div>
 
-      <div id="cartItems"></div>
+      <div class="cart-items" id="cartItems"></div>
 
-      <div class="cart-summary">
-        <p>
-          Total:
-          <strong id="cartTotal">Price on request</strong>
-        </p>
-
-        <p>
-          Prices and availability will be confirmed
-          before your order is completed.
-        </p>
-
-        <button
-          id="checkoutButton"
-          class="button"
-          type="button"
-        >
-          Continue on WhatsApp
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cartTotal">Price to confirm</strong>
+        </div>
+        <button class="btn btn-primary checkout-button" id="checkoutButton" type="button">
+          Enquire on WhatsApp
         </button>
       </div>
     </aside>
-  </div>
 
-  <!-- TOAST -->
-  <div
-    id="toast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
-</body>
+    <div id="toast" class="toast" aria-live="polite"></div>
+  </body>
 </html>
