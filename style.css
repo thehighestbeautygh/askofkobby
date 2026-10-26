@@ -2021,3 +2021,56 @@ button:disabled {
     align-items: flex-start;
   }
 }
+.clips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 12px;
+}
+
+.clip-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--soft);
+}
+
+.clip-media {
+  position: relative;
+  min-height: 340px;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.clip-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+
+.clip-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.68));
+  color: var(--paper);
+}
+
+.clip-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.clip-overlay h3 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
